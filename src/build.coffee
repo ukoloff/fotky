@@ -1,3 +1,6 @@
 console.log 'None yet'
 
-x = require './index'
+GLOBAL.listCallback = (list)->
+  console.log list
+
+require './index'

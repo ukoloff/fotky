@@ -1,5 +1,8 @@
 fs = require 'fs'
 
+unless GLOBAL.listCallback
+  throw Error 'listCallback not defined'
+
 list = (files)->
   files.sort (a, b)->
     a = a.order
@@ -7,7 +10,7 @@ list = (files)->
     if a==b then 0
     else if a<b then -1
     else +1
-  console.log files
+  @listCallback files
 
 fs.readdir __dirname, (err, files)->
   return if err
