@@ -1,0 +1,19 @@
+{
+  "name": "fotky",
+  "description": "Javascript (client side) viewer for fotki.yandex.ru's album",
+  "author": {
+    "name": "Stas Ukolov",
+    "email": "ukoloff@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ukoloff/fotky"
+  },
+  "devDependencies": {
+    "coffee-script": "*",
+    "uglify-js": "*"
+  },
+  "scripts": {
+    "test": "cake www"
+  }
+}
