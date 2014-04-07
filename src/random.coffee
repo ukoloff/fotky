@@ -1,4 +1,6 @@
 #
+# order: 10
+#
 # Random string
 #
 String.random=(q=1)->
