@@ -1,6 +1,6 @@
 fs = require 'fs'
 
-exports.index = (callback)->
+module.exports = (callback)->
   fs.readdir __dirname, (err, files)->
     return if err
     X = []

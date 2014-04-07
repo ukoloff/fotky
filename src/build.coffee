@@ -2,5 +2,5 @@ console.log 'None yet'
 
 idx = require './index'
 
-idx.index (files)->
+idx (files)->
   console.log files
