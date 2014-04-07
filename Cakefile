@@ -1,6 +1,6 @@
 
 task 'www', 'Run development Webserver', ->
-  console.log 'None yet'
+  require './src/www'
 
 task 'build', 'Compile, minify and link', ->
-  console.log 'None yet'
+  require './src/build'
