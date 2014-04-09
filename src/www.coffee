@@ -21,6 +21,9 @@ server = (req, rsp)->
   if /^\/(\w+)\.css$/.test p
     return doCSS rsp
 
+  if /^\/(\w+)\.js$/.test p
+    return doJS rsp, RegExp.$1
+
   doHTML rsp
 
 doHTML = (rsp)->
@@ -38,3 +41,17 @@ doCSS = (rsp)->
   fs.readFile __dirname+'/www.css', (err, data)->
     rsp.writeHead 200, 'Content-Type': 'text/css'
     rsp.end data
+
+doJS = (rsp, name)->
+  fs.readFile __dirname+'/'+name+'.coffee', encoding: 'utf8', (err, data)->
+    if err
+      rsp.writeHead 404, 'Content-Type': 'text/plain'
+      rsp.end 'Not found'
+      return
+    rsp.writeHead 200, 'Content-Type': 'application/javascript'
+    rsp.end try cc.compile data catch e
+      cc.compile """
+        throw SyntaxError '''
+          #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
+        '''
+      """
