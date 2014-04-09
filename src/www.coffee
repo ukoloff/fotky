@@ -1,1 +1,2 @@
-console.log 'None yet'
+module.exports = (options)->
+  console.log options
