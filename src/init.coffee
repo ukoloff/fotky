@@ -8,4 +8,3 @@ me = -> $.apply this, arguments
 me.noconflict = @$
 
 @$ = me
-
