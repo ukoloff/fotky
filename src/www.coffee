@@ -16,6 +16,11 @@ module.exports = (options)->
       console.log " - http://#{x.address}:#{port}"
 
 server = (req, rsp)->
+  p = url.parse(req.url).pathname
+
+  if /^\/(\w+)\.css$/.test p
+    return doCSS rsp
+
   doHTML rsp
 
 doHTML = (rsp)->
@@ -28,3 +33,8 @@ doHTML = (rsp)->
       rsp.write "<script src='/#{f.name}.js'></script>\n" for f in files
       rsp.write html[1]
       rsp.end()
+
+doCSS = (rsp)->
+  fs.readFile __dirname+'/www.css', (err, data)->
+    rsp.writeHead 200, 'Content-Type': 'text/css'
+    rsp.end data
