@@ -1,7 +1,7 @@
-idx = require './index'
 fs = require 'fs'
 coffee = require 'coffee-script'
 uglify = require 'uglify-js'
+idx = require './index'
 
 idx (files)->
   fs.writeFileSync out = __dirname+'/../fotky.js', ''

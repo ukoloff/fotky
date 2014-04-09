@@ -2,6 +2,7 @@ http = require 'http'
 url  = require 'url'
 fs   = require 'fs'
 cc   = require 'coffee-script'
+idx  = require './index'
 
 module.exports = (options)->
   port = options.port
@@ -15,5 +16,15 @@ module.exports = (options)->
       console.log " - http://#{x.address}:#{port}"
 
 server = (req, rsp)->
-  rsp.writeHead 200, 'Content-Type': 'text/html'
-  rsp.end 'Hello, world!'
+  doHTML rsp
+
+doHTML = (rsp)->
+  rsp.writeHead 200, 'Content-Type': 'text/html; charset=utf-8'
+  html = []
+  fs.readFile __dirname+'/www.html', encoding: 'utf8', (err, data)->
+    html = data.split /<#include>\s*/, 2
+    rsp.write html[0]
+    idx (files)->
+      rsp.write "<script src='/#{f.name}.js'></script>\n" for f in files
+      rsp.write html[1]
+      rsp.end()
