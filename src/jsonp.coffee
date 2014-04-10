@@ -9,7 +9,7 @@ $.jsonp = (options)->
 
   cbname = setCallback (data)->
     resetCallback cbname
-    console.log data
+    options.success? data
 
   js = document.createElement 'script'
   js.async = true
