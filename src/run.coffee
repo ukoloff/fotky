@@ -1,5 +1,5 @@
 #
-# -order: 1000
+# order: 1000
 #
 
 defer = (fn)-> setTimeout fn, 0
@@ -13,6 +13,8 @@ defer ->
        url: data.links.photos
        success: (data)->
          console.log 'Photos', data
+
+  return
 
   defer ->
     $.jsonp
