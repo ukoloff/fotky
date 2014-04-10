@@ -9,3 +9,8 @@ body {
   border:  ridge;
   vertical-align: top;
 }
+
+.thumbnail>div {
+  overflow: hidden;
+  text-align: center;
+}

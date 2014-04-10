@@ -31,8 +31,18 @@ thumbs = (album)->
   for x in album.entries
     div = document.createElement 'div'
     div.className = 'thumbnail'
+    div2 = document.createElement 'div'
+    div2.style.width = x.img.S.width
     img = document.createElement 'img'
     img.src = x.img.S.href
-    div.appendChild img
+    div3 = document.createElement 'div'
+    div3.innerText = x.title or ''
+    div4 = document.createElement 'div'
+    div4.innerText = x.summary or ''
+
+    div.appendChild div2
+    div2.appendChild img
+    div2.appendChild div3
+    div2.appendChild div4
     document.body.appendChild div
   false
