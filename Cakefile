@@ -1,3 +1,4 @@
+require 'coffee-script/register'
 
 option '-p', '--port [Number]', 'port to run Webserver on'
 
