@@ -29,7 +29,10 @@ defer ->
 thumbs = (album)->
   console.log 'Photos', album
   for x in album.entries
+    div = document.createElement 'div'
+    div.className = 'thumbnail'
     img = document.createElement 'img'
     img.src = x.img.S.href
-    document.body.appendChild img
+    div.appendChild img
+    document.body.appendChild div
   false

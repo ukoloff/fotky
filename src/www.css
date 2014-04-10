@@ -3,3 +3,9 @@ body {
   color: black;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.thumbnail {
+  display: inline-block;
+  border:  ridge;
+  vertical-align: top;
+}
