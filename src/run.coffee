@@ -1,5 +1,5 @@
 #
-# order: 1000
+# -order: 1000
 #
 
 defer = (fn)-> setTimeout fn, 0
