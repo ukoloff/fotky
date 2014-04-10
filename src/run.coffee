@@ -11,8 +11,7 @@ defer ->
       console.log 'Album', data
       $.jsonp
        url: data.links.photos
-       success: (data)->
-         console.log 'Photos', data
+       success: thumbs
 
   return
 
@@ -26,3 +25,11 @@ defer ->
          success: (data)->
            console.log 'Albums', data
 
+
+thumbs = (album)->
+  console.log 'Photos', album
+  for x in album.entries
+    img = document.createElement 'img'
+    img.src = x.img.S.href
+    document.body.appendChild img
+  false
