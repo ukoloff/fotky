@@ -14,3 +14,13 @@ defer ->
        success: (data)->
          console.log 'Photos', data
 
+  defer ->
+    $.jsonp
+      url: 'http://api-fotki.yandex.ru/api/users/stanislav-ukolov/?format=json'
+      success: (data)->
+        console.log 'User', data
+        $.jsonp
+         url: data.collections['album-list'].href+'?format=json'
+         success: (data)->
+           console.log 'Albums', data
+
