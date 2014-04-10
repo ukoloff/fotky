@@ -12,11 +12,11 @@ idx (files)->
     try
       src = coffee.compile src
     catch e
-      console.log "# #{f.name}(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message}"
+      console.error "# #{f.name}(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message}"
       src = coffee.compile """
-        console.log '''
-          Syntax error at #{f.name}(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
+        console.error '''
+        Syntax error at #{f.name}(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
         '''
-      """
+      """, bare: true
     fs.appendFileSync out = __dirname+'/../fotky.js',
       uglify.minify(src, fromString: true).code+'\n'

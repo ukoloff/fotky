@@ -52,6 +52,6 @@ doJS = (rsp, name)->
     rsp.end try cc.compile data catch e
       cc.compile """
         throw SyntaxError '''
-          #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
+        #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
         '''
-      """
+      """, bare: true
