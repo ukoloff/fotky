@@ -2,6 +2,11 @@ body {
   background: white;
   color: black;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  text-align: left;
 }
 
 .thumbnail {
