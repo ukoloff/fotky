@@ -1,6 +1,29 @@
 fs = require 'fs'
+y  = require 'js-yaml'
+_  = require 'underscore'
 
 module.exports = (callback)->
+
+  res = []
+
+  readYAML = ->
+    fs.readFile __dirname+'/index.yaml', encoding: 'utf-8', (err, data)->
+      return do listFiles if err
+      try
+        list = y.safeLoad data
+      catch e
+        return do listFiles
+      res = _.map list, (v, k)->
+        order: k
+        path: v
+      do listFiles
+
+  listFiles = ->
+    console.log res
+
+  do readYAML
+
+  return
   fs.readdir __dirname, (err, files)->
     return if err
     X = []
