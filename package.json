@@ -11,7 +11,10 @@
   },
   "devDependencies": {
     "coffee-script": "*",
-    "uglify-js": "*"
+    "uglify-js": "*",
+    "underscore": "*",
+    "js-yaml": "*",
+    "without": "*"
   },
   "scripts": {
     "test": "cake www"

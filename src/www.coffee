@@ -3,6 +3,7 @@ url  = require 'url'
 fs   = require 'fs'
 cc   = require 'coffee-script'
 idx  = require './index'
+_    = require 'underscore'
 
 module.exports = (options)->
   port = options.port
@@ -26,6 +27,8 @@ server = (req, rsp)->
 
   doHTML rsp
 
+scripts = {}
+
 doHTML = (rsp)->
   rsp.writeHead 200, 'Content-Type': 'text/html; charset=utf-8'
   html = []
@@ -33,7 +36,8 @@ doHTML = (rsp)->
     html = data.split /<#include>\s*/, 2
     rsp.write html[0]
     idx (files)->
-      rsp.write "<script src='/#{f.name}.js'></script>\n" for f in files
+      scripts = _.indexBy files, 'name'
+      rsp.write "<script src='/#{f.name}.js'></script><!-- order: #{f.order} -->\n" for f in files
       rsp.write html[1]
       rsp.end()
 
@@ -43,15 +47,26 @@ doCSS = (rsp)->
     rsp.end data
 
 doJS = (rsp, name)->
-  fs.readFile __dirname+'/'+name+'.coffee', encoding: 'utf8', (err, data)->
+  do404 = ->
+    rsp.writeHead 404, 'Content-Type': 'text/plain'
+    rsp.end '// Not found'
+
+  unless z = scripts[name]
+    do do404
+    return
+
+  fs.readFile z.path, encoding: 'utf8', (err, data)->
     if err
-      rsp.writeHead 404, 'Content-Type': 'text/plain'
-      rsp.end 'Not found'
+      do do404
       return
     rsp.writeHead 200, 'Content-Type': 'application/javascript'
-    rsp.end try cc.compile data catch e
-      cc.compile """
-        throw SyntaxError '''
-        #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
-        '''
-      """, bare: true
+    if z.cs
+      data = try cc.compile data
+      catch e
+        cc.compile """
+          throw SyntaxError '''
+          #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
+          '''
+        """, bare: true
+    rsp.end data
+
