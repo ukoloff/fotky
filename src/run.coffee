@@ -28,22 +28,14 @@ defer ->
 
 thumbs = (album)->
   console.log 'Photos', album
-  for x in album.entries
-    div = document.createElement 'div'
-    div.className = 'thumbnail'
-    div2 = document.createElement 'a'
-    div2.style.width = x.img.S.width
-    div2.href = "##{x.id}"
-    img = document.createElement 'img'
-    img.src = x.img.S.href
-    div3 = document.createElement 'div'
-    div3.innerText = x.title or ''
-    div4 = document.createElement 'div'
-    div4.innerText = x.summary or ''
+  document.getElementById('fotky').innerHTML = t album
 
-    div.appendChild div2
-    div2.appendChild img
-    div2.appendChild div3
-    div2.appendChild div4
-    document.body.appendChild div
-  false
+t = withOut.$compile (album, size = 'S')->
+  for x in @entries
+    xz = x.img[size]
+    div class: 'thumbnail', ->
+      a style: "width: #{xz.width}px;", href: "##{x.id}", ->
+        img src: xz.href
+        div x.title
+        div x.summary
+
