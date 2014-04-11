@@ -5,6 +5,7 @@
 defer = (fn)-> setTimeout fn, 0
 
 defer ->
+  do $.startHistory
   $.jsonp
     url: 'http://api-fotki.yandex.ru/api/users/stanislav-ukolov/album/417370/?format=json'
     success: (data)->
