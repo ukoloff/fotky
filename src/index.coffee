@@ -16,6 +16,7 @@ module.exports = (callback)->
       res = _.map list, (v, k)->
         order: k
         path: v
+        cs: /\.coffee$/i.test v
       do listFiles
 
   listFiles = ->
