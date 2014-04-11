@@ -47,15 +47,26 @@ doCSS = (rsp)->
     rsp.end data
 
 doJS = (rsp, name)->
-  fs.readFile __dirname+'/'+name+'.coffee', encoding: 'utf8', (err, data)->
+  do404 = ->
+    rsp.writeHead 404, 'Content-Type': 'text/plain'
+    rsp.end '// Not found'
+
+  unless z = scripts[name]
+    do do404
+    return
+
+  fs.readFile z.path, encoding: 'utf8', (err, data)->
     if err
-      rsp.writeHead 404, 'Content-Type': 'text/plain'
-      rsp.end 'Not found'
+      do do404
       return
     rsp.writeHead 200, 'Content-Type': 'application/javascript'
-    rsp.end try cc.compile data catch e
-      cc.compile """
-        throw SyntaxError '''
-        #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
-        '''
-      """, bare: true
+    if z.cs
+      data = try cc.compile data
+      catch e
+        cc.compile """
+          throw SyntaxError '''
+          #{name}.coffee(#{e.location.first_line+1}:#{e.location.first_column+1}): #{e.message.replace /[\\']/g, '\\$&'}
+          '''
+        """, bare: true
+    rsp.end data
+
