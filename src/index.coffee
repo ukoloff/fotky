@@ -48,7 +48,7 @@ module.exports = (callback)->
   Finish = ->
     res = _.sortBy res, 'order'
     _.each res, (z)->
-      z.path = p.resolve z.path
+      z.path = p.resolve __dirname, z.path
       z.name = p.basename(z.path).replace /\.[^.]*$/, ''
     callback? res
 
