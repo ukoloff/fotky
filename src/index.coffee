@@ -1,4 +1,5 @@
 fs = require 'fs'
+p  = require 'path'
 y  = require 'js-yaml'
 _  = require 'underscore'
 
@@ -45,7 +46,10 @@ module.exports = (callback)->
     do Finish
 
   Finish = ->
-    console.log res
+    res = _.sortBy res, 'order'
+    _.each res, (z)->
+      z.path = p.resolve z.path
+      z.name = p.basename(z.path).replace /\.[^.]*$/, ''
     callback ? res
 
   do readYAML
