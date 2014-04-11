@@ -3,6 +3,7 @@ url  = require 'url'
 fs   = require 'fs'
 cc   = require 'coffee-script'
 idx  = require './index'
+_    = require 'underscore'
 
 module.exports = (options)->
   port = options.port
@@ -26,6 +27,8 @@ server = (req, rsp)->
 
   doHTML rsp
 
+scripts = {}
+
 doHTML = (rsp)->
   rsp.writeHead 200, 'Content-Type': 'text/html; charset=utf-8'
   html = []
@@ -33,7 +36,8 @@ doHTML = (rsp)->
     html = data.split /<#include>\s*/, 2
     rsp.write html[0]
     idx (files)->
-      rsp.write "<script src='/#{f.name}.js'></script>\n" for f in files
+      scripts = _.indexBy files, 'name'
+      rsp.write "<script src='/#{f.name}.js'></script><!-- order: #{f.order} -->\n" for f in files
       rsp.write html[1]
       rsp.end()
 
