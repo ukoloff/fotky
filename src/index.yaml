@@ -1,0 +1,4 @@
+#
+# Additional files to include in index
+#
+10: ../node_modules/underscore/underscore.js
