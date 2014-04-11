@@ -14,13 +14,39 @@ module.exports = (callback)->
       catch e
         return do listFiles
       res = _.map list, (v, k)->
-        order: k
+        order: Number k
         path: v
         cs: /\.coffee$/i.test v
       do listFiles
 
   listFiles = ->
+    fs.readdir __dirname, (err, files)->
+      if err
+        do Finish
+      else
+        findOrder files
+
+  findOrder = (files)->
+    while files.length
+      continue unless cs=/\.(?:js|(coffee))$/.exec f = files.shift()
+      cs = !!cs[1]
+      fs.readFile path = __dirname+'/'+f, encoding: 'utf-8', (err, data)->
+        if err
+          findOrder files
+          return
+        cmt = if cs then '#' else '//'
+        if match = ///^(?:#{cmt}.*?(?:\r\n?|\n))*?#{cmt}\s*order:\s*(\d+)\s*(?:\r\n?|\n)///.exec data
+          res.push
+            order: Number match[1]
+            path: path
+            cs: cs
+        findOrder files
+      return
+    do Finish
+
+  Finish = ->
     console.log res
+    callback ? res
 
   do readYAML
 
