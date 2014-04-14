@@ -39,4 +39,4 @@ t = withOut.$compile (album, size = 'S')->
         img src: xz.href
         div x.title
         div x.summary
-
+  return
