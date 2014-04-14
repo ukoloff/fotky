@@ -3,6 +3,11 @@ p  = require 'path'
 y  = require 'js-yaml'
 _  = require 'underscore'
 
+getExt = (filename)->
+  switch p.extname(filename).toLowerCase()
+    when '.js'     then 0
+    when '.coffee' then 1
+
 module.exports = (callback)->
 
   res = []
@@ -17,7 +22,7 @@ module.exports = (callback)->
       res = _.map list, (v, k)->
         order: Number k
         path: v
-        cs: /\.coffee$/i.test v
+        cs: getExt v
       do listFiles
 
   listFiles = ->
@@ -29,8 +34,7 @@ module.exports = (callback)->
 
   findOrder = (files)->
     while files.length
-      continue unless cs=/\.(?:js|(coffee))$/.exec f = files.shift()
-      cs = !!cs[1]
+      continue unless cs=getExt(f = files.shift())?
       fs.readFile path = __dirname+'/'+f, encoding: 'utf-8', (err, data)->
         if err
           findOrder files
