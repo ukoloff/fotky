@@ -35,8 +35,8 @@ t = withOut.$compile (album, size = 'S')->
   for x in @entries
     xz = x.img[size]
     div class: 'thumbnail', ->
-      a style: "width: #{xz.width}px;", href: "##{x.id}", ->
+      a style: "width: #{xz.width}px;", href: "##{x.id}", title: x.title or null, ->
         img src: xz.href
-        div x.title
-        div x.summary
+        div -> b x.title
+        div title: x.summary or null, -> small x.summary
   return
