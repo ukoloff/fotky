@@ -16,8 +16,13 @@ $.Yuser = (@name, options)->
         success: (data)=>
           @albums = data
           do findId
+          @yalbums = do makeYalbums
           options.success?.call @
 
   findId = =>
     for a in @albums.authors when a.name==@name
       return @id = a.uid
+
+  makeYalbums = =>
+    for a in @albums.entries
+      new $.Yalbum @, a
