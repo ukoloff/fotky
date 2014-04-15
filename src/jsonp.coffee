@@ -4,26 +4,28 @@
 
 $.jsonp = (options)->
 
-  {url, callback}=options
+  {url, callback, timeout}=options
   callback ||= 'callback'
+  timeout ||= 3000
 
-  cbname = setCallback (data)->
-    resetCallback cbname
-    options.success? data
+  while window[cbname = "_#{random 15}"]
+    ;
+
+  window[cbname] = (data)-> options.success? data if do Clear
+  Error = -> options.error?() if do Clear
 
   js = document.createElement 'script'
   js.async = true
   js.src = "#{url}#{if url.indexOf('?')>=0 then '&' else '?'}#{callback}=#{cbname}"
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild js
+  setTimeout Error, timeout
 
-setCallback = (fn)->
-  while @[name = "_#{random 15}"]
-    ;
-  @[name] = fn
-  name
-
-resetCallback = (name)->
-  delete @[name]
+  Clear = ->
+    return unless js
+    delete window[cbname]
+    js.parentNode.removeChild js
+    js = null
+    true
 
 random=(q=1)->
   s = ''
