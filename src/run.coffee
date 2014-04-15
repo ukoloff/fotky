@@ -13,6 +13,8 @@ defer ->
       $.jsonp
        url: data.links.photos
        success: thumbs
+    error: ->
+      console.log 'Oops!'
 
   return
 
