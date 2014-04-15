@@ -15,4 +15,9 @@ $.Yuser = (@name, options)->
           options.error?.call @
         success: (data)=>
           @albums = data
+          do findId
           options.success?.call @
+
+  findId = =>
+    for a in @albums.authors when a.name==@name
+      return @id = a.uid
