@@ -17,10 +17,17 @@ $.jsonp = (options)->
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild js
 
 setCallback = (fn)->
-  while @[name = "_#{String.random 15}"]
+  while @[name = "_#{random 15}"]
     ;
   @[name] = fn
   name
 
 resetCallback = (name)->
   delete @[name]
+
+random=(q=1)->
+  s = ''
+  while s.length<q
+    n=Math.floor 62*Math.random()
+    s+=String.fromCharCode n%26+'Aa0'.charCodeAt n/26
+  s
