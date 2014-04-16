@@ -11,7 +11,6 @@ defer ->
     error: ->
       console.log 'Oops!'
     success: ->
-      console.log 'User loaded: ', @
       for y in @yalbums
         if y.id=="417370"
           break
@@ -27,7 +26,6 @@ defer ->
           render @
 
 render = (yalbum)->
-  console.log 'Yalbum', yalbum
   document.getElementById('fotky').innerHTML = t yalbum.ymgs
 
 t = withOut.$compile (list, size = 'S')->
