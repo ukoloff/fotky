@@ -8,6 +8,7 @@ klass = $.Yalbum = (yuser, @def)->
 
 klass.prototype =
   loadPhotos: ->
+    return unless @visible()
     $.jsonp
       url: @def.links.photos
       success: (data)=>
@@ -16,3 +17,6 @@ klass.prototype =
 
   fullPath: ->
     "#{@path}/#{@id}"
+
+  visible: ->
+    @def.img?
