@@ -7,13 +7,16 @@ klass = $.Yalbum = (yuser, @def)->
   @path = yuser.id
 
 klass.prototype =
-  loadPhotos: ->
+  loadPhotos: (options)->
     return unless @visible()
     $.jsonp
       url: @def.links.photos
       success: (data)=>
         @ymgs = for y in (@photos = data).entries
           new $.Ymg @, y
+        options.success?.call @
+      error: =>
+        options.error?.call @
 
   fullPath: ->
     "#{@path}/#{@id}"

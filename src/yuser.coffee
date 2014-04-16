@@ -17,7 +17,6 @@ $.Yuser = (@name, options)->
           @albums = data
           do findId
           @yalbums = do makeYalbums
-          do fetchYalbums
           options.success?.call @
 
   findId = =>
@@ -27,8 +26,3 @@ $.Yuser = (@name, options)->
   makeYalbums = =>
     for a in @albums.entries
       new $.Yalbum @, a
-
-  fetchYalbums = =>
-    for y in @yalbums
-      y.loadPhotos()
-
