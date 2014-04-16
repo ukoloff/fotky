@@ -27,6 +27,8 @@ $.jsonp = (options)->
     js = null
     true
 
+  return
+
 random=(q=1)->
   s = ''
   while s.length<q

@@ -7,4 +7,10 @@ klass = $.Yalbum = (yuser, @def)->
   @path = "#{yuser.id}/#{@id}"
 
 klass.prototype =
-  loadPhotos = ->
+  loadPhotos: ->
+    $.jsonp
+      url: @def.links.photos
+      success: (data)=>
+        console.log 'Pz', data
+        @ymgs = for y in (@photos = data).entries
+          new $.Ymg @, y
