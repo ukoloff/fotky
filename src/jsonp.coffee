@@ -16,6 +16,7 @@ $.jsonp = (options)->
 
   js = document.createElement 'script'
   js.async = true
+  js.onerror = Error
   js.src = "#{url}#{if url.indexOf('?')>=0 then '&' else '?'}#{callback}=#{cbname}"
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild js
   setTimeout Error, timeout
