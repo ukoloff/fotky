@@ -30,8 +30,8 @@ module.exports = build = (watch)->
       if err
         console.log "#Error:", err
       else
-        fs.writeFile 'test/fotky.js', data
-        fs.writeFile 'fotky.js', minify data
+        fs.writeFile __dirname+'/../test/fotky.js', data
+        fs.writeFile __dirname+'/../fotky.js', minify data
         console.log 'Build done!'
       files.forEach (file)->
         listen.push listenFile file
