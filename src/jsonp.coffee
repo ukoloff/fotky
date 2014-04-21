@@ -1,7 +1,7 @@
+merge = require './merge.coffee'
+
 jsonp = (options)->
-  {url, callback, timeout}=options
-  callback ||= 'callback'
-  timeout ||= 3000
+  {url, callback, timeout} = merge jsonp.defaults, options
 
   while window[cbname = "_#{random 15}"]
     ;
@@ -24,6 +24,10 @@ jsonp = (options)->
     true
 
   return
+
+jsonp.defaults =
+  callback: 'callback'
+  timeout: 3000
 
 random=(q=1)->
   s = ''
