@@ -10,11 +10,11 @@
     "url": "https://github.com/ukoloff/fotky"
   },
   "devDependencies": {
-    "coffee-script": "*",
-    "uglify-js": "*",
-    "underscore": "*",
+    "coffee-script": "~1.7.1",
+    "uglify-js": "~2.4.13",
+    "underscore": "~1.6.0",
     "js-yaml": "*",
-    "without": "*",
+    "without": "~1.0.4",
     "browserify": "~3.44.1"
   },
   "scripts": {
