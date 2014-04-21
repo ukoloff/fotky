@@ -14,7 +14,8 @@
     "uglify-js": "*",
     "underscore": "*",
     "js-yaml": "*",
-    "without": "*"
+    "without": "*",
+    "browserify": "~3.44.1"
   },
   "scripts": {
     "test": "cake www"
