@@ -1,5 +1,5 @@
-require './jsonp.coffee'
-withOut = require 'without'
+Yuser = require './yuser.coffee'
 
-console.log do withOut.compile ->
-  div id: 1
+u = new Yuser 'stanislav-ukolov',
+  success: ->
+    console.log @

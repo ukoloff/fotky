@@ -1,15 +1,14 @@
-#
-# order: 101
-#
+Yalbum = require './yalbum.coffee'
+jsonp = require './jsonp.coffee'
 
-$.Yuser = (@name, options)->
-  $.jsonp
+Yuser = (@name, options)->
+  jsonp
     url: "http://api-fotki.yandex.ru/api/users/#{escape(name)}/?format=json"
     error: =>
       options.error?.call @
     success: (data)=>
       @service = data
-      $.jsonp
+      jsonp
         url: data.collections['album-list'].href+'?format=json'
         error: =>
           options.error?.call @
@@ -25,4 +24,6 @@ $.Yuser = (@name, options)->
 
   makeYalbums = =>
     for a in @albums.entries
-      new $.Yalbum @, a
+      new Yalbum @, a
+
+module.exports = Yuser

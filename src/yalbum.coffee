@@ -1,19 +1,18 @@
-#
-# order: 102
-#
+Ymg = require './ymg.coffee'
+jsonp = require './jsonp.coffee'
 
-klass = $.Yalbum = (yuser, @def)->
+Yalbum = (yuser, @def)->
   @id = def.id.split(':').reverse()[0]
   @path = yuser.id
 
-klass.prototype =
+Yalbum.prototype =
   loadPhotos: (options)->
     return unless @visible()
-    $.jsonp
+    jsonp
       url: @def.links.photos
       success: (data)=>
         @ymgs = for y in (@photos = data).entries
-          new $.Ymg @, y
+          new Ymg @, y
         options.success?.call @
       error: =>
         options.error?.call @
@@ -23,3 +22,5 @@ klass.prototype =
 
   visible: ->
     @def.img?
+
+module.exports = Yalbum
