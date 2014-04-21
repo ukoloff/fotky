@@ -1,6 +1,4 @@
-#
-# order: 30
-#
+withOut = require 'without'
 
 prev = null
 
@@ -15,7 +13,7 @@ t = withOut.$compile ->
   b 'Hash: '
   text @
 
-$.startHistory = ->
+module.exports = ->
   do checkHash
   if 'onhashchange' of window
     window.onhashchange = checkHash

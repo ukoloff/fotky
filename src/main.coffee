@@ -1,5 +1,8 @@
 withOut = require 'without'
 Yuser = require './yuser.coffee'
+history = require './history.coffee'
+
+setTimeout history
 
 u = new Yuser 'stanislav-ukolov',
   success: ->
