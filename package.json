@@ -13,7 +13,6 @@
     "coffee-script": "~1.7.1",
     "uglify-js": "~2.4.13",
     "underscore": "~1.6.0",
-    "js-yaml": "*",
     "without": "~1.0.4",
     "browserify": "~3.44.1",
     "through": "~2.3.4",
@@ -22,6 +21,6 @@
     "chokidar": "~0.8.2"
   },
   "scripts": {
-    "test": "cake www"
+    "test": "cake test"
   }
 }
