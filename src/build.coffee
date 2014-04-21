@@ -1,10 +1,12 @@
 browserify = require 'browserify'
 uglify = require 'uglify-js'
 fs = require 'fs'
+opaque = require './opaque'
 
 do build = ->
   b = new browserify
     extension: ['.coffee']
+    pack: opaque
 
   b.transform './src/coffee2js'
 

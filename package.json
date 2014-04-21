@@ -16,7 +16,9 @@
     "js-yaml": "*",
     "without": "~1.0.4",
     "browserify": "~3.44.1",
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "intreq": "0.0.0",
+    "browser-pack": "~2.0.1"
   },
   "scripts": {
     "test": "cake www"
