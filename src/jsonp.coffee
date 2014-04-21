@@ -1,5 +1,4 @@
-module.exports = (options)->
-
+jsonp = (options)->
   {url, callback, timeout}=options
   callback ||= 'callback'
   timeout ||= 3000
@@ -32,3 +31,5 @@ random=(q=1)->
     n=Math.floor 62*Math.random()
     s+=String.fromCharCode n%26+'Aa0'.charCodeAt n/26
   s
+
+module.exports = jsonp

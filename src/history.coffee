@@ -13,9 +13,11 @@ t = withOut.$compile ->
   b 'Hash: '
   text @
 
-module.exports = ->
+startHistory = ->
   do checkHash
   if 'onhashchange' of window
     window.onhashchange = checkHash
   else
     window.setInterval checkHash, 50
+
+module.exports = startHistory
