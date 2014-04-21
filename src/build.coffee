@@ -3,7 +3,8 @@ uglify = require 'uglify-js'
 fs = require 'fs'
 opaque = require './opaque'
 
-do build = ->
+module.exports = build = (watch)->
+  watch = require 'chokidar' if watch
   b = new browserify
     extension: ['.coffee']
     pack: opaque

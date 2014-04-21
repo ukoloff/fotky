@@ -18,7 +18,8 @@
     "browserify": "~3.44.1",
     "through": "~2.3.4",
     "intreq": "0.0.0",
-    "browser-pack": "~2.0.1"
+    "browser-pack": "~2.0.1",
+    "chokidar": "~0.8.2"
   },
   "scripts": {
     "test": "cake www"

@@ -1,9 +1,9 @@
 require 'coffee-script/register'
 
-option '-p', '--port [Number]', 'port to run Webserver on'
+build = require './src/build'
 
-task 'www', 'Run development Webserver', (options)->
-  require('./src/www') options
+task 'test', 'Start browserify rebuild loop', ->
+  build true
 
 task 'build', 'Compile, minify and link', ->
-  require './src/build'
+  do build
