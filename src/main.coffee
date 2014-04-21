@@ -5,6 +5,8 @@ history = require './history.coffee'
 setTimeout history
 
 u = new Yuser 'stanislav-ukolov',
+  error: ->
+    console.log 'User not found!'
   success: ->
     for a in @yalbums
       if a.def.img
