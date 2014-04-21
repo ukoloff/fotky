@@ -15,7 +15,8 @@
     "underscore": "~1.6.0",
     "js-yaml": "*",
     "without": "~1.0.4",
-    "browserify": "~3.44.1"
+    "browserify": "~3.44.1",
+    "through": "~2.3.4"
   },
   "scripts": {
     "test": "cake www"
