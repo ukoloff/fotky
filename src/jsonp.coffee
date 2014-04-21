@@ -1,8 +1,4 @@
-#
-# order: 20
-#
-
-$.jsonp = (options)->
+module.exports = (options)->
 
   {url, callback, timeout}=options
   callback ||= 'callback'

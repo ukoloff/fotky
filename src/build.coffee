@@ -13,7 +13,7 @@ module.exports = build = (watch)->
   files = []
 
   b = new browserify
-    extension: ['.coffee']
+    # extension: ['.coffee']
     pack: opaque
 
   b.transform './src/coffee2js'
