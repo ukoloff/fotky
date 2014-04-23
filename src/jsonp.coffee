@@ -10,7 +10,7 @@ jsonp = (options)->
   data[callback] = cbname
 
   q = ''
-  for k, v of data when (v = String(v or '')).length
+  for k, v of data when v? and(v = String(v)).length
     q += (if q.length or 0<=url.indexOf '?' then '&' else '?')+
       encodeURIComponent(k)+'='+
       encodeURIComponent v
