@@ -21,7 +21,8 @@ jsonp = (options)->
   h = setTimeout Error, timeout
 
   Clear = ->
-    delete window[cbname]
+    try delete window[cbname] catch
+      window[cbname]=null # MSIE6 !
     clearTimeout h
     js.onerror = null
     js.parentNode.removeChild js
