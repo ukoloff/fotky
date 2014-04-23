@@ -6,6 +6,15 @@ jsonp = (options)->
   while window[cbname = "_#{random 15}"]
     ;
 
+  data = merge options.data
+  data[callback] = cbname
+
+  q = ''
+  for k, v of data when (v = String(v or '')).length
+    q += (if q.length or 0<=url.indexOf '?' then '&' else '?')+
+      encodeURIComponent(k)+'='+
+      encodeURIComponent v
+
   window[cbname] = (data)->
     do Clear
     options.success? data
@@ -16,7 +25,7 @@ jsonp = (options)->
   js = document.createElement 'script'
   js.async = true
   js.onerror = Error
-  js.src = "#{url}#{if url.indexOf('?')>=0 then '&' else '?'}#{callback}=#{cbname}"
+  js.src = url+q
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild js
   h = setTimeout Error, timeout
 

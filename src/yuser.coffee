@@ -3,7 +3,9 @@ jsonp = require './jsonp.coffee'
 
 Yuser = (@name, options)->
   jsonp
-    url: "http://api-fotki.yandex.ru/api/users/#{escape(name)}/?format=json"
+    url: "http://api-fotki.yandex.ru/api/users/#{escape(name)}/"
+    data:
+      format: 'json'
     error: =>
       options.error?.call @
     success: (data)=>
