@@ -33,3 +33,5 @@ t = withOut.$compile (list, size = 'S')->
         div -> b y.def.title
         div title: y.def.summary or null, -> small y.def.summary
   return
+
+t.id = 'thumbs'

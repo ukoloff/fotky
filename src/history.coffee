@@ -13,6 +13,8 @@ t = withOut.$compile ->
   b 'Hash: '
   text @
 
+t.id = 'hash'
+
 startHistory = ->
   do checkHash
   if 'onhashchange' of window
