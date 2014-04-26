@@ -14,7 +14,7 @@ h1 {
   vertical-align: top;
 }
 
-.thumbnail>a {
+.thumbnail a {
   display: block;
   overflow: hidden;
   text-align: center;
