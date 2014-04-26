@@ -1,5 +1,6 @@
 merge = require './merge.coffee'
 
+quote = encodeURIComponent
 jsonp = (options)->
   {url, callback, timeout} = merge jsonp.defaults, options
 
@@ -11,9 +12,7 @@ jsonp = (options)->
 
   q = ''
   for k, v of data when v? and(v = String(v)).length
-    q += (if q.length or 0<=url.indexOf '?' then '&' else '?')+
-      encodeURIComponent(k)+'='+
-      encodeURIComponent v
+    q += "#{if q.length or 0<=url.indexOf '?' then '&' else '?'}#{quote k}=#{quote v}"
 
   window[cbname] = (data)->
     do Clear
@@ -23,7 +22,6 @@ jsonp = (options)->
     options.error?()
 
   js = document.createElement 'script'
-  js.async = true
   js.onerror = Error
   js.src = url+q
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild js
