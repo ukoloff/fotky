@@ -21,6 +21,6 @@
     "chokidar": "~0.8.2"
   },
   "scripts": {
-    "test": "cake test"
+    "test": "node node_modules/coffee-script/bin/coffee src/build.coffee"
   }
 }
