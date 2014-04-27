@@ -14,12 +14,12 @@ module.exports = build = (watch)->
   files = []
 
   b = new browserify
-    # extension: ['.coffee']
+    extensions: ['.coffee']
     pack: opaque
 
   b.transform c2js
 
-  b.add './src/main.coffee'
+  b.add './src/main'
 
   if watch
     b.on 'file', (f)-> files.push f

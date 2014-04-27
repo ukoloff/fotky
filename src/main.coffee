@@ -1,6 +1,6 @@
 withOut = require 'without'
-Yuser = require './yuser.coffee'
-history = require './history.coffee'
+Yuser = require './yuser'
+history = require './history'
 
 setTimeout history
 

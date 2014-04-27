@@ -1,5 +1,5 @@
-Yalbum = require './yalbum.coffee'
-jsonp = require './jsonp.coffee'
+Yalbum = require './yalbum'
+jsonp = require './jsonp'
 
 Yuser = (@name, options)->
   jsonp

@@ -1,5 +1,5 @@
-Ymg = require './ymg.coffee'
-jsonp = require './jsonp.coffee'
+Ymg = require './ymg'
+jsonp = require './jsonp'
 
 Yalbum = (yuser, @def)->
   @id = def.id.split(':').reverse()[0]

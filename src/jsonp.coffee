@@ -1,4 +1,4 @@
-merge = require './merge.coffee'
+merge = require './merge'
 
 quote = encodeURIComponent
 jsonp = (options)->
