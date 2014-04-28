@@ -3,8 +3,6 @@ Yuser = require './yuser'
 history = require './history'
 root = require './root'
 
-# setTimeout history
-
 root.onparse = ->
   console.log @albums
 
@@ -24,6 +22,7 @@ load = (a)->
       console.log 'Oops'
     success: ->
       render @
+      do history
 
 render = (yalbum)->
   root.div.innerHTML = t yalbum.ymgs
