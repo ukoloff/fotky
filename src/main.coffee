@@ -1,8 +1,12 @@
 withOut = require 'without'
 Yuser = require './yuser'
 history = require './history'
+root = require './root'
 
-setTimeout history
+# setTimeout history
+
+root.onparse = ->
+  console.log @albums
 
 u = new Yuser 'stanislav-ukolov',
   error: ->
