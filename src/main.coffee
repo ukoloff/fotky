@@ -8,15 +8,15 @@ root = require './root'
 root.onparse = ->
   console.log @albums
 
-u = new Yuser 'stanislav-ukolov',
-  error: ->
-    console.log 'User not found!'
-  success: ->
-    for a in @yalbums
-      if a.def.img
-        load a
-        return
-    console.log 'No albums found'
+  u = new Yuser 'stanislav-ukolov',
+    error: ->
+      console.log 'User not found!'
+    success: ->
+      for a in @yalbums
+        if a.def.img
+          load a
+          return
+      console.log 'No albums found'
 
 load = (a)->
   a.loadPhotos
@@ -26,7 +26,7 @@ load = (a)->
       render @
 
 render = (yalbum)->
-  document.getElementById('fotky').innerHTML = t yalbum.ymgs
+  root.div.innerHTML = t yalbum.ymgs
 
 t = withOut.$compile (list, size = 'S')->
   for y in list
