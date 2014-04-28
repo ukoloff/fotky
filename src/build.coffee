@@ -11,8 +11,6 @@ listen = []
 
 do build = ->
   console.log 'Rebuilding...'
-  listen.forEach (z)->z.close()
-  listen = []
   files = []
 
   b = new browserify
