@@ -3,6 +3,8 @@ Yuser = require './yuser'
 history = require './history'
 root = require './root'
 
+root.register Yuser
+
 root.onparse = ->
   console.log @albums
 

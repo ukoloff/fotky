@@ -1,5 +1,22 @@
 merge = require './merge'
 
+loaders = []
+domains = {}
+
+flatten = (array)->
+  r = []
+  for _, x of array
+    if 'object'==typeof x
+      r.push.apply r, flatten x
+    else
+      r.push x
+  r
+
+@register = ->
+  for z, i in loaders = flatten [].slice.call arguments
+    domains[x]=i for x in z.exts or []
+  return
+
 setTimeout =>
   return unless @div = z = document.getElementById 'fotky'
   return unless script = z.getElementsByTagName('script')[0]

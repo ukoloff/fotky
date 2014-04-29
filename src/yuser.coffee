@@ -28,4 +28,6 @@ Yuser = (@name, options)->
     for a in @albums.entries
       new Yalbum @, a
 
+Yuser.exts = 'y yandex ya.ru yandex.ru'.split ' '
+
 module.exports = Yuser
