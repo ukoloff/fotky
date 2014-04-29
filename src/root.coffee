@@ -7,8 +7,7 @@ setTimeout =>
   return unless exports.div = z = document.getElementById 'fotky'
   return unless script = z.getElementsByTagName('script')[0]
 
-  exports.albums = parse script.innerHTML
-  exports.onparse?.call exports
+  load parse script.innerHTML
 
 flatten = (array)->
   r = []
@@ -47,3 +46,23 @@ parse = (ids)->
       id: m[0]
       user
       if stars & 1 and '*'!=m[0] then off: 1 else {}
+
+# Выделить и загрузить юзеров из результатов parse()
+getUsers = (ids, fn)->
+  users = {}
+  users[z.uid = "#{z.u}@#{z.d}"]||=z for z in ids
+  list = (z for _, z of users)
+  users = {}
+  do getUser = ->
+    unless z = list.pop()
+      return fn? users
+    new loaders[z.d] z.u,
+      error: getUser
+      success: ->
+        users[z.uid] = @
+        do getUser
+
+# Загрузить результаты parse()
+load = (ids)->
+  getUsers ids, (x)->
+    exports.onparse? x

@@ -5,9 +5,9 @@ root = require './root'
 
 root.register Yuser
 
-root.onparse = ->
-  console.log @albums
-
+root.onparse = (z)->
+  console.log z
+  return
   u = new Yuser 'stanislav-ukolov',
     error: ->
       console.log 'User not found!'
