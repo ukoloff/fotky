@@ -1,6 +1,7 @@
 history = require './history'
 root = require './root'
 t = require './thumbs'
+withOut = require 'without'
 
 routing = (albums)->
   all = {}
@@ -19,10 +20,11 @@ routing = (albums)->
     img = hash.slice(2).join '/'
 
     fire = ->
-      if img
-        console.log a.fullPath(), img
+      root.div.innerHTML = if img
+        ti findImg a, img
       else
-        root.div.innerHTML = t a.ymgs
+        t a.ymgs
+
 
     if a.loaded
       do fire
@@ -35,5 +37,13 @@ routing = (albums)->
           a.loaded = true
           a.failed = true
           do fire
+
+ti = withOut.$compile (z)->
+  img src: z.def.img.L.href
+  div -> b z.def.title
+  div -> small z.def.summary
+
+findImg = (a, i)->
+  return z for z in a.ymgs when z.id==i
 
 module.exports = routing
