@@ -7,19 +7,8 @@ root.register Yuser
 
 root.ready = (z)->
   console.log z
-  return
-  u = new Yuser 'stanislav-ukolov',
-    error: ->
-      console.log 'User not found!'
-    success: ->
-      for a in @yalbums
-        if a.def.img
-          load a
-          return
-      console.log 'No albums found'
-
-load = (a)->
-  a.loadPhotos
+  return unless z.length
+  z[0].loadPhotos
     error: ->
       console.log 'Oops'
     success: ->
