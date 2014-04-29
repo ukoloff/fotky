@@ -3,7 +3,7 @@ merge = require './merge'
 loaders = []
 domains = {}
 
-setTimeout =>
+setTimeout ->
   return unless exports.div = z = document.getElementById 'fotky'
   return unless script = z.getElementsByTagName('script')[0]
 
