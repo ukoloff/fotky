@@ -12,6 +12,7 @@ h1 {
   display: inline-block;
   border:  ridge;
   vertical-align: top;
+  white-space: nowrap;
 }
 
 .thumbnail a {
