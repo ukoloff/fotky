@@ -6,17 +6,7 @@ root = require './root'
 root.register Yuser
 
 root.ready = (z)->
-  console.log z
-  return unless z.length
-  z[0].loadPhotos
-    error: ->
-      console.log 'Oops'
-    success: ->
-      render @
-      do history
-
-render = (yalbum)->
-  root.div.innerHTML = t yalbum.ymgs
+  root.div.innerHTML = t z
 
 t = withOut.$compile (list, size = 'S')->
   for y in list
