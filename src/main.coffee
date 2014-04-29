@@ -1,12 +1,7 @@
 Yuser = require './yuser'
-history = require './history'
 root = require './root'
-t = require './thumbs'
+route = require './router'
 
 root.register Yuser
 
-root.ready = (z)->
-  root.div.innerHTML = t z
-
-  history (hash)->
-    console.log '#', hash
+root.ready = route
