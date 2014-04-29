@@ -8,6 +8,9 @@ root.register Yuser
 root.ready = (z)->
   root.div.innerHTML = t z
 
+  history (hash)->
+    console.log '#', hash
+
 t = withOut.$compile (list, size = 'S')->
   for y in list
     yz = y.def.img[size]
