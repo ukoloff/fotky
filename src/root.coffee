@@ -59,10 +59,18 @@ getUsers = (ids, fn)->
     new loaders[z.d] z.u,
       error: getUser
       success: ->
-        users[z.uid] = @
+        indexUser users[z.uid] = @
         do getUser
 
-# Загрузить результаты parse()
+indexUser = (u)->
+  return if u._
+  u._ = {}
+  u._[z.id] = z for z in u.yalbums when z.visible()
+
+# Собрать список альбомов из результатов parse()
 load = (ids)->
-  getUsers ids, (x)->
-    exports.onparse? x
+  getUsers ids, (users)->
+    console.log users, ids
+    list = []
+    for z in ids when u = users[z.uid]
+      ;
