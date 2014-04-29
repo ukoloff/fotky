@@ -1,7 +1,7 @@
 Yuser = require './yuser'
 history = require './history'
 root = require './root'
-t = require 'thumbs'
+t = require './thumbs'
 
 root.register Yuser
 
