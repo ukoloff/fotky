@@ -70,7 +70,28 @@ indexUser = (u)->
 # Собрать список альбомов из результатов parse()
 load = (ids)->
   getUsers ids, (users)->
-    console.log users, ids
     list = []
+
+    addAlbum = (a)->
+      return if a.idx?
+      a.idx = -1+list.push a
+
+    addAll = (u)->
+      addAlbum v for k, v of u._
+
+    delAlbum = (a)->
+      return unless a.idx?
+      list.splice a.idx, 1
+      delete a.idx
+
     for z in ids when u = users[z.uid]
-      ;
+      if '*'==z.id
+        addAll u
+        continue
+      continue unless x = u._[z.id]
+      if z.off
+        delAlbum x
+      else
+        addAlbum x
+
+    exports.ready? list

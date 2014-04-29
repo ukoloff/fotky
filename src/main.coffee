@@ -5,7 +5,7 @@ root = require './root'
 
 root.register Yuser
 
-root.onparse = (z)->
+root.ready = (z)->
   console.log z
   return
   u = new Yuser 'stanislav-ukolov',
