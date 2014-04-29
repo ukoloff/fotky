@@ -13,20 +13,23 @@ setTimeout =>
   re = ///
     [*] | # Either '*'
     (?:
-      [-\w]+ # Or identifier
+      ([-\w]+) # Or identifier
       (?: @ ( [-\w]+ (?:[.][-\w]+)? ) )? # with optional @domain
     )///g
   exports.albums = while m = re.exec script
-    if m[1]
-      user = m[0]
+    if m[2]
+      user =
+        u: m[1]
+        d: domains[m[2]]
+      user = null unless user.d?
       stars = 0
       continue
     continue unless user
     if '*'==m[0]
       continue if stars++
     merge
-      user: user
-      album: m[0]
+      id: m[0]
+      user
       if stars & 1 and '*'!=m[0] then off: 1 else {}
 
   exports.onparse?.call exports
