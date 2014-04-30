@@ -379,9 +379,9 @@ module.exports = jsonp;
 },{"1":5}],4:[function(require,module,exports){
 var Yuser, root, route;
 
-Yuser = require(1);
+Yuser = require(2);
 
-root = require(2);
+root = require(1);
 
 route = require(3);
 
@@ -389,7 +389,7 @@ root.register(Yuser);
 
 root.ready = route;
 
-},{"1":11,"2":6,"3":7}],5:[function(require,module,exports){
+},{"1":6,"2":11,"3":7}],5:[function(require,module,exports){
 var merge;
 
 merge = function() {
@@ -605,7 +605,7 @@ routing = function(albums) {
     all[z.fullPath()] = z;
   }
   return history(function(hash) {
-    var a, fire, img;
+    var a, fire, img, renderAlbum, renderImg;
     if ('' === hash) {
       root.div.innerHTML = t(albums);
       return;
@@ -616,21 +616,30 @@ routing = function(albums) {
       return;
     }
     img = hash.slice(2).join('/');
-    fire = function() {
-      return root.div.innerHTML = img ? ti(findImg(a, img)) : t(a.ymgs);
+    renderAlbum = function() {
+      return root.div.innerHTML = t(a.ymgs);
+    };
+    renderImg = function() {
+      if (a.failed || !(z = findImg(a, img))) {
+        location.hash = '#' + a.fullPath();
+        return;
+      }
+      return root.div.innerHTML = ti(z);
+    };
+    fire = function(oops) {
+      a.loaded = true;
+      if (oops) {
+        a.failed = true;
+      }
+      return (img ? renderImg : renderAlbum)();
     };
     if (a.loaded) {
       return fire();
     } else {
       return a.loadPhotos({
-        success: function() {
-          a.loaded = true;
-          return fire();
-        },
+        success: fire,
         error: function() {
-          a.loaded = true;
-          a.failed = true;
-          return fire();
+          return fire(1);
         }
       });
     }
@@ -777,9 +786,9 @@ module.exports = Ymg;
 },{}],11:[function(require,module,exports){
 var Yalbum, Yuser, jsonp;
 
-Yalbum = require(1);
+Yalbum = require(2);
 
-jsonp = require(2);
+jsonp = require(1);
 
 Yuser = function(name, options) {
   var findId, makeYalbums;
@@ -845,7 +854,7 @@ Yuser.exts = 'y yandex ya.ru yandex.ru'.split(' ');
 
 module.exports = Yuser;
 
-},{"1":9,"2":3}]},{},[4])
+},{"1":3,"2":9}]},{},[4])
 
 
 //# sourceMappingURL=fotky.map

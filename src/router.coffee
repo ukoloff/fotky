@@ -19,14 +19,22 @@ routing = (albums)->
 
     img = hash.slice(2).join '/'
 
+    renderAlbum = ->
+      root.div.innerHTML = t a.ymgs
+
+    renderImg = ->
+      if a.failed or not z = findImg a, img
+        location.hash = '#'+a.fullPath()
+        return
+      root.div.innerHTML = ti z
+
     fire = (oops)->
       a.loaded = true
       a.failed = true if oops
-      root.div.innerHTML = if img
-        ti findImg a, img
+      do if img
+        renderImg
       else
-        t a.ymgs
-
+        renderAlbum
 
     if a.loaded
       do fire
