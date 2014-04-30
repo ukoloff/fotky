@@ -30,7 +30,7 @@ do build = ->
         console.log 'Done!'
       files.forEach (file)->
         listen.push listenFile file
-  .pipe bundler 'fotky'
+  .pipe bundler 'fotky', true
 
 listenFile = (file)->
   chokidar.watch file,
