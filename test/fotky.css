@@ -1,21 +1,15 @@
-body {
-  background: white;
-  color: black;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+#fotky {
+  text-align: center;
 }
 
-h1 {
-  text-align: left;
-}
-
-.thumbnail {
+#fotky .thumbnail {
   display: inline-block;
   border:  ridge;
   vertical-align: top;
   white-space: nowrap;
 }
 
-.thumbnail a {
+#fotky a {
   display: block;
   overflow: hidden;
   text-align: center;
@@ -23,6 +17,6 @@ h1 {
   color: navy;
 }
 
-#fotky {
-  text-align: center;
+#fotky img {
+  border: none;
 }

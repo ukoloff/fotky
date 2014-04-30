@@ -1,0 +1,57 @@
+body {
+  background: white;
+  color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  text-align: left;
+}
+
+.muted {
+  color: #999999;
+}
+
+.text-warning {
+  color: #c09853;
+}
+
+.text-error {
+  color: #b94a48;
+}
+
+.text-info {
+  color: #3a87ad;
+}
+
+.text-success {
+  color: #468847;
+}
+
+.success {
+  background-color: #dff0d8;
+}
+
+.error {
+  background-color: #f2dede;
+}
+
+.warning {
+  background-color: #fcf8e3;
+}
+
+.info {
+  background-color: #d9edf7;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
