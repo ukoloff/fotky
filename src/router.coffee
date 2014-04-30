@@ -39,6 +39,7 @@ routing = (albums)->
     if a.loaded
       do fire
     else
+      root.div.innerHTML = do tWait
       a.loadPhotos
         success: fire
         error: -> fire 1
@@ -50,5 +51,8 @@ ti = withOut.$compile (z)->
 
 findImg = (a, i)->
   return z for z in a.ymgs when z.id==i
+
+tWait = withOut.compile ->
+  div class: 'info', 'Идёт загрузка альбома...'
 
 module.exports = routing
