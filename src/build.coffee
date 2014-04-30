@@ -1,9 +1,8 @@
 browserify = require 'browserify'
-uglify = require 'uglify-js'
-fs = require 'fs'
 
 opaque = require './opaque'
 c2js = require './coffee2js'
+bundler = require './bundler'
 
 chokidar = require 'chokidar' if watch = !process.env.npm_config_once
 
@@ -28,18 +27,10 @@ do build = ->
       if err
         console.log "#Error:", err
       else
-        fs.writeFile __dirname+'/../test/fotky.js', data
-        console.log 'Minifying...'
-        fs.writeFile __dirname+'/../fotky.js', minify data
-        console.log 'Build done!'
+        console.log 'Done!'
       files.forEach (file)->
         listen.push listenFile file
-
-minify = (s)->
-  try
-    uglify.minify(s, fromString: true).code
-  catch e
-    "// Minify (syntax?) error"
+  .pipe bundler 'fotky'
 
 listenFile = (file)->
   chokidar.watch file,
