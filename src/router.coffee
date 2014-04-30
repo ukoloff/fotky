@@ -19,7 +19,9 @@ routing = (albums)->
 
     img = hash.slice(2).join '/'
 
-    fire = ->
+    fire = (oops)->
+      a.loaded = true
+      a.failed = true if oops
       root.div.innerHTML = if img
         ti findImg a, img
       else
@@ -30,13 +32,8 @@ routing = (albums)->
       do fire
     else
       a.loadPhotos
-        success: ->
-          a.loaded = true
-          do fire
-        error: ->
-          a.loaded = true
-          a.failed = true
-          do fire
+        success: fire
+        error: -> fire 1
 
 ti = withOut.$compile (z)->
   img src: z.def.img.L.href
