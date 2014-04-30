@@ -18,7 +18,8 @@
     "through": "~2.3.4",
     "intreq": "0.0.0",
     "browser-pack": "~2.0.1",
-    "chokidar": "~0.8.2"
+    "chokidar": "~0.8.2",
+    "exorcist": "^0.1.6"
   },
   "scripts": {
     "test": "node node_modules/coffee-script/bin/coffee src/build.coffee"
