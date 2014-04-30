@@ -20,7 +20,10 @@ routing = (albums)->
     img = hash.slice(2).join '/'
 
     renderAlbum = ->
-      root.div.innerHTML = t a.ymgs
+      root.div.innerHTML = if a.failed
+        do tOops
+      else
+        t a.ymgs
 
     renderImg = ->
       if a.failed or not z = findImg a, img
@@ -54,5 +57,8 @@ findImg = (a, i)->
 
 tWait = withOut.compile ->
   div class: 'info', 'Идёт загрузка альбома...'
+
+tOops = withOut.compile ->
+  div class: 'error', 'Не удалось загрузить альбом :-('
 
 module.exports = routing
