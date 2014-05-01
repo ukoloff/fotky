@@ -17,7 +17,10 @@ picture = (img, album)->
   root.foot.innerHTML = tF z.def.summary
 
 t = withOut.$compile (z)->
-  img src: z.def.img.L.href
+  img
+    src: z.def.img.L.href
+    alt: z.def.title
+    title: z.def.title
 
 t.id = 'img'
 

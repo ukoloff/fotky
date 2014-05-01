@@ -5,7 +5,7 @@ t = withOut.$compile (list, size = 'S')->
     yz = y.def.img[size]
     span class: 'thumbnail', ->
       a style: "width: #{yz.width}px;", href: "##{y.fullPath()}", title: y.def.title or null, ->
-        img src: yz.href
+        img src: yz.href, alt: y.def.title
         div -> b y.def.title
         div title: y.def.summary or null, -> small y.def.summary
   return
