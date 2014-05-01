@@ -12,6 +12,7 @@ routing = (albums)->
     if ''==hash
       document.title = title
       root.body.innerHTML = t albums
+      root.foot.innerHTML = ''
       return
 
     hash = hash.split /\/+/
@@ -20,6 +21,7 @@ routing = (albums)->
       return
 
     document.title = a.def.title
+    root.foot.innerHTML = tFoot a.def.summary
 
     img = hash.slice(2).join '/'
 
@@ -35,6 +37,7 @@ routing = (albums)->
         return
       document.title = z.def.title
       root.body.innerHTML = ti z
+      root.foot.innerHTML = tFoot z.def.summary
 
     fire = (oops)->
       a.loaded = true
@@ -54,8 +57,13 @@ routing = (albums)->
 
 ti = withOut.$compile (z)->
   img src: z.def.img.L.href
-  div -> b z.def.title
-  div -> small z.def.summary
+
+ti.id = 'img'
+
+tFoot = withOut.$compile (txt)->
+  i txt
+
+tFoot.id = 'footer'
 
 findImg = (a, i)->
   return z for z in a.ymgs when z.id==i
