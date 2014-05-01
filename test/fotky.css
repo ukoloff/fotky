@@ -10,10 +10,13 @@
 }
 
 #fotky a {
+  text-decoration: none;
+}
+
+#fotky .thumbnail a {
   display: block;
   overflow: hidden;
   text-align: center;
-  text-decoration: none;
   color: navy;
 }
 

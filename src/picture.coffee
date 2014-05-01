@@ -12,7 +12,7 @@ picture = (img, album)->
     return
 
   document.title = z.def.title
-  root.head.innerHTML = tH z.def.title
+  root.head.innerHTML = tH z, album
   root.body.innerHTML = t z
   root.foot.innerHTML = tF z.def.summary
 
@@ -21,8 +21,13 @@ t = withOut.$compile (z)->
 
 t.id = 'img'
 
-tH = withOut.$compile (txt)->
-  b txt
+tH = withOut.$compile (img, album)->
+  a href: '#', 'Галереи'
+  text ' / '
+  a href: '#'+album.fullPath(), album.def.title
+  text ' / '
+  b img.def.title
+
 tH.id = 'iHead'
 
 tF = withOut.$compile (txt)->

@@ -23,7 +23,7 @@ routing = (albums)->
       return
 
     document.title = a.def.title
-    root.head.innerHTML = tH a.def.title
+    root.head.innerHTML = tH a
     root.foot.innerHTML = tF a.def.summary
 
     img = hash.slice(2).join '/'
@@ -47,8 +47,10 @@ routing = (albums)->
         success: fire
         error: -> fire 1
 
-tH = withOut.$compile (txt)->
-  b txt
+tH = withOut.$compile (album)->
+  a href: '#', 'Галереи'
+  text ' / '
+  b album.def.title
 tH.id = 'aHead'
 
 tF = withOut.$compile (txt)->
