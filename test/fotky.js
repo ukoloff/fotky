@@ -379,17 +379,17 @@ module.exports = jsonp;
 },{"1":5}],4:[function(require,module,exports){
 var Yuser, root, route;
 
-Yuser = require(2);
+Yuser = require(1);
 
-root = require(1);
+root = require(3);
 
-route = require(3);
+route = require(2);
 
 root.register(Yuser);
 
 root.ready = route;
 
-},{"1":6,"2":11,"3":7}],5:[function(require,module,exports){
+},{"1":12,"2":8,"3":7}],5:[function(require,module,exports){
 var merge;
 
 merge = function() {
@@ -410,9 +410,82 @@ merge = function() {
 module.exports = merge;
 
 },{}],6:[function(require,module,exports){
-var domains, flatten, getUsers, indexUser, load, loaders, merge, parse;
+var picture, root, t, tF, tH, withOut;
+
+root = require(1);
+
+withOut = require(2);
+
+picture = function(img, album) {
+  var find, z;
+  find = function() {
+    var i, z, _i, _len, _ref;
+    _ref = album.ymgs;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      z = _ref[i];
+      if (!(z.id === img)) {
+        continue;
+      }
+      z.idx = Number(i);
+      return z;
+    }
+  };
+  if (album.failed || !(z = find())) {
+    location.hash = '#' + album.fullPath();
+    return;
+  }
+  document.title = z.def.title;
+  root.head.innerHTML = tH(z, album);
+  root.body.innerHTML = t(z);
+  return root.foot.innerHTML = tF(z.def.summary);
+};
+
+t = withOut.$compile(function(z) {
+  return img({
+    src: z.def.img.L.href
+  });
+});
+
+t.id = 'img';
+
+tH = withOut.$compile(function(img, album) {
+  a({
+    "class": 'left',
+    href: '#' + (album.ymgs[img.idx - 1] || album).fullPath(),
+    title: 'Назад'
+  }, '<<');
+  a({
+    href: '#'
+  }, 'Галереи');
+  text(' / ');
+  a({
+    href: '#' + album.fullPath()
+  }, album.def.title);
+  text(' / ');
+  b(img.def.title);
+  return a({
+    "class": 'right',
+    href: '#' + (album.ymgs[img.idx + 1] || album).fullPath(),
+    title: 'Вперёд'
+  }, '>>');
+});
+
+tH.id = 'iHead';
+
+tF = withOut.$compile(function(txt) {
+  return i(txt);
+});
+
+tF.id = 'iFoot';
+
+module.exports = picture;
+
+},{"1":7,"2":1}],7:[function(require,module,exports){
+var domains, flatten, getUsers, indexUser, layout, load, loaders, merge, parse, withOut;
 
 merge = require(1);
+
+withOut = require(2);
 
 loaders = [];
 
@@ -537,6 +610,21 @@ indexUser = function(u) {
   return _results;
 };
 
+layout = function() {
+  var i, x, z, _i, _len, _ref;
+  (z = exports.div).innerHTML = withOut.compile(function() {
+    var i, _i;
+    for (i = _i = 1; _i <= 3; i = ++_i) {
+      div();
+    }
+  })();
+  _ref = 'head body foot'.split(' ');
+  for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+    x = _ref[i];
+    exports[x] = z.childNodes[i];
+  }
+};
+
 load = function(ids) {
   return getUsers(ids, function(users) {
     var addAlbum, addAll, delAlbum, list, u, x, z, _i, _len;
@@ -582,12 +670,13 @@ load = function(ids) {
         addAlbum(x);
       }
     }
+    layout();
     return typeof exports.ready === "function" ? exports.ready(list) : void 0;
   });
 };
 
-},{"1":5}],7:[function(require,module,exports){
-var findImg, history, root, routing, t, ti, withOut;
+},{"1":5,"2":1}],8:[function(require,module,exports){
+var history, picture, root, routing, t, tF, tH, tOops, tWait, withOut;
 
 history = require(1);
 
@@ -595,19 +684,25 @@ root = require(2);
 
 t = require(3);
 
-withOut = require(4);
+picture = require(4);
+
+withOut = require(5);
 
 routing = function(albums) {
-  var all, z, _i, _len;
+  var all, title, z, _i, _len;
+  title = document.title;
   all = {};
   for (_i = 0, _len = albums.length; _i < _len; _i++) {
     z = albums[_i];
     all[z.fullPath()] = z;
   }
   return history(function(hash) {
-    var a, fire, img, renderAlbum, renderImg;
+    var a, fire, img;
     if ('' === hash) {
-      root.div.innerHTML = t(albums);
+      document.title = title;
+      root.body.innerHTML = t(albums);
+      root.head.innerHTML = '';
+      root.foot.innerHTML = '';
       return;
     }
     hash = hash.split(/\/+/);
@@ -615,27 +710,25 @@ routing = function(albums) {
       location.hash = '#';
       return;
     }
+    document.title = a.def.title;
+    root.head.innerHTML = tH(a);
+    root.foot.innerHTML = tF(a.def.summary);
     img = hash.slice(2).join('/');
-    renderAlbum = function() {
-      return root.div.innerHTML = t(a.ymgs);
-    };
-    renderImg = function() {
-      if (a.failed || !(z = findImg(a, img))) {
-        location.hash = '#' + a.fullPath();
-        return;
-      }
-      return root.div.innerHTML = ti(z);
-    };
     fire = function(oops) {
       a.loaded = true;
       if (oops) {
         a.failed = true;
       }
-      return (img ? renderImg : renderAlbum)();
+      if (img) {
+        return picture(img, a);
+      } else {
+        return root.body.innerHTML = a.failed ? tOops : t(a.ymgs);
+      }
     };
     if (a.loaded) {
       return fire();
     } else {
+      root.body.innerHTML = tWait();
       return a.loadPhotos({
         success: fire,
         error: function() {
@@ -646,32 +739,39 @@ routing = function(albums) {
   });
 };
 
-ti = withOut.$compile(function(z) {
-  img({
-    src: z.def.img.L.href
-  });
-  div(function() {
-    return b(z.def.title);
-  });
-  return div(function() {
-    return small(z.def.summary);
-  });
+tH = withOut.$compile(function(album) {
+  a({
+    href: '#'
+  }, 'Галереи');
+  text(' / ');
+  return b(album.def.title);
 });
 
-findImg = function(a, i) {
-  var z, _i, _len, _ref;
-  _ref = a.ymgs;
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    z = _ref[_i];
-    if (z.id === i) {
-      return z;
-    }
-  }
-};
+tH.id = 'aHead';
+
+tF = withOut.$compile(function(txt) {
+  return i(txt);
+});
+
+tF.id = 'aFoot';
+
+tWait = withOut.compile(function() {
+  return div({
+    "class": 'info'
+  }, 'Идёт загрузка альбома...');
+});
+
+tWait.id = 'wait';
+
+tOops = withOut.compile(function() {
+  return div({
+    "class": 'error'
+  }, 'Не удалось загрузить альбом :-(');
+})();
 
 module.exports = routing;
 
-},{"1":2,"2":6,"3":8,"4":1}],8:[function(require,module,exports){
+},{"1":2,"2":7,"3":9,"4":6,"5":1}],9:[function(require,module,exports){
 var t, withOut;
 
 withOut = require(1);
@@ -684,7 +784,7 @@ t = withOut.$compile(function(list, size) {
   for (_i = 0, _len = list.length; _i < _len; _i++) {
     y = list[_i];
     yz = y.def.img[size];
-    div({
+    span({
       "class": 'thumbnail'
     }, function() {
       return a({
@@ -712,7 +812,7 @@ t.id = 'thumbs';
 
 module.exports = t;
 
-},{"1":1}],9:[function(require,module,exports){
+},{"1":1}],10:[function(require,module,exports){
 var Yalbum, Ymg, jsonp;
 
 Ymg = require(1);
@@ -766,7 +866,7 @@ Yalbum.prototype = {
 
 module.exports = Yalbum;
 
-},{"1":10,"2":3}],10:[function(require,module,exports){
+},{"1":11,"2":3}],11:[function(require,module,exports){
 var Ymg;
 
 Ymg = function(yalbum, def) {
@@ -783,12 +883,12 @@ Ymg.prototype = {
 
 module.exports = Ymg;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var Yalbum, Yuser, jsonp;
 
-Yalbum = require(2);
+Yalbum = require(1);
 
-jsonp = require(1);
+jsonp = require(2);
 
 Yuser = function(name, options) {
   var findId, makeYalbums;
@@ -854,7 +954,7 @@ Yuser.exts = 'y yandex ya.ru yandex.ru'.split(' ');
 
 module.exports = Yuser;
 
-},{"1":3,"2":9}]},{},[4])
+},{"1":10,"2":3}]},{},[4])
 
 
 //# sourceMappingURL=fotky.map
