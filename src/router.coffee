@@ -12,6 +12,7 @@ routing = (albums)->
     if ''==hash
       document.title = title
       root.body.innerHTML = t albums
+      root.head.innerHTML = ''
       root.foot.innerHTML = ''
       return
 
@@ -21,6 +22,7 @@ routing = (albums)->
       return
 
     document.title = a.def.title
+    root.head.innerHTML = tHead a.def.title
     root.foot.innerHTML = tFoot a.def.summary
 
     img = hash.slice(2).join '/'
@@ -36,6 +38,7 @@ routing = (albums)->
         location.hash = '#'+a.fullPath()
         return
       document.title = z.def.title
+      root.head.innerHTML = tHead z.def.title
       root.body.innerHTML = ti z
       root.foot.innerHTML = tFoot z.def.summary
 
@@ -60,6 +63,9 @@ ti = withOut.$compile (z)->
 
 ti.id = 'img'
 
+tHead = withOut.$compile (txt)->
+  b txt
+
 tFoot = withOut.$compile (txt)->
   i txt
 
@@ -71,7 +77,11 @@ findImg = (a, i)->
 tWait = withOut.compile ->
   div class: 'info', 'Идёт загрузка альбома...'
 
+tWait.id = 'wait'
+
 tOops = withOut.compile ->
   div class: 'error', 'Не удалось загрузить альбом :-('
+
+tOops.id = 'oops'
 
 module.exports = routing
