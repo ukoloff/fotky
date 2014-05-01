@@ -381,15 +381,15 @@ var Yuser, root, route;
 
 Yuser = require(1);
 
-root = require(3);
+root = require(2);
 
-route = require(2);
+route = require(3);
 
 root.register(Yuser);
 
 root.ready = route;
 
-},{"1":12,"2":8,"3":7}],5:[function(require,module,exports){
+},{"1":12,"2":7,"3":8}],5:[function(require,module,exports){
 var merge;
 
 merge = function() {
@@ -481,7 +481,7 @@ tF.id = 'iFoot';
 module.exports = picture;
 
 },{"1":7,"2":1}],7:[function(require,module,exports){
-var domains, flatten, getUsers, indexUser, layout, load, loaders, merge, parse, withOut;
+var domains, el, flatten, getUsers, indexUser, load, loaders, merge, parse, regions, withOut;
 
 merge = require(1);
 
@@ -491,12 +491,14 @@ loaders = [];
 
 domains = {};
 
+el = null;
+
 setTimeout(function() {
-  var script, z;
-  if (!(exports.div = z = document.getElementById('fotky'))) {
+  var script;
+  if (!(el = document.getElementById('fotky'))) {
     return;
   }
-  if (!(script = z.getElementsByTagName('script')[0])) {
+  if (!(script = el.getElementsByTagName('script')[0])) {
     return;
   }
   return load(parse(script.innerHTML));
@@ -610,18 +612,22 @@ indexUser = function(u) {
   return _results;
 };
 
-layout = function() {
-  var i, x, z, _i, _len, _ref;
-  (z = exports.div).innerHTML = withOut.compile(function() {
-    var i, _i;
-    for (i = _i = 1; _i <= 3; i = ++_i) {
-      div();
+regions = function() {
+  var x, _i, _len, _ref;
+  el.innerHTML = withOut.compile(function() {
+    var i, _i, _len, _ref;
+    _ref = 'head body foot'.split(' ');
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      i = _ref[_i];
+      div({
+        id: i
+      });
     }
   })();
-  _ref = 'head body foot'.split(' ');
-  for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-    x = _ref[i];
-    exports[x] = z.childNodes[i];
+  _ref = el.childNodes;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    x = _ref[_i];
+    exports[x.id] = x;
   }
 };
 
@@ -646,10 +652,15 @@ load = function(ids) {
       return _results;
     };
     delAlbum = function(a) {
+      var i, z, _i, _len;
       if (a.idx == null) {
         return;
       }
       list.splice(a.idx, 1);
+      for (i = _i = 0, _len = list.length; _i < _len; i = ++_i) {
+        z = list[i];
+        z.idx = i;
+      }
       return delete a.idx;
     };
     for (_i = 0, _len = ids.length; _i < _len; _i++) {
@@ -670,7 +681,7 @@ load = function(ids) {
         addAlbum(x);
       }
     }
-    layout();
+    regions();
     return typeof exports.ready === "function" ? exports.ready(list) : void 0;
   });
 };
@@ -815,9 +826,9 @@ module.exports = t;
 },{"1":1}],10:[function(require,module,exports){
 var Yalbum, Ymg, jsonp;
 
-Ymg = require(1);
+Ymg = require(2);
 
-jsonp = require(2);
+jsonp = require(1);
 
 Yalbum = function(yuser, def) {
   this.def = def;
@@ -866,7 +877,7 @@ Yalbum.prototype = {
 
 module.exports = Yalbum;
 
-},{"1":11,"2":3}],11:[function(require,module,exports){
+},{"1":3,"2":11}],11:[function(require,module,exports){
 var Ymg;
 
 Ymg = function(yalbum, def) {

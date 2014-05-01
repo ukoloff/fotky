@@ -3,10 +3,11 @@ withOut = require 'without'
 
 loaders = []
 domains = {}
+el = null
 
 setTimeout ->
-  return unless exports.div = z = document.getElementById 'fotky'
-  return unless script = z.getElementsByTagName('script')[0]
+  return unless el = document.getElementById 'fotky'
+  return unless script = el.getElementsByTagName('script')[0]
 
   load parse script.innerHTML
 
@@ -68,11 +69,11 @@ indexUser = (u)->
   u._ = {}
   u._[z.id] = z for z in u.yalbums when z.visible()
 
-layout = ->
-  (z = exports.div).innerHTML = do withOut.compile ->
-    do div for i in [1..3]
+regions = ->
+  el.innerHTML = do withOut.compile ->
+    div id: i for i in 'head body foot'.split ' '
     return
-  exports[x] = z.childNodes[i]  for x, i in 'head body foot'.split ' '
+  exports[x.id] = x for x in el.childNodes
   return
 
 # Собрать список альбомов из результатов parse()
@@ -103,6 +104,6 @@ load = (ids)->
       else
         addAlbum x
 
-    do layout
+    do regions
     exports.ready? list
 
