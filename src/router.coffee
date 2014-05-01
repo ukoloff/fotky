@@ -4,11 +4,13 @@ t = require './thumbs'
 withOut = require 'without'
 
 routing = (albums)->
+  title = document.title
   all = {}
   all[z.fullPath()] = z for z in albums
 
   history (hash)->
     if ''==hash
+      document.title = title
       root.body.innerHTML = t albums
       return
 
@@ -16,6 +18,8 @@ routing = (albums)->
     unless a = all[hash.slice(0, 2).join '/']
       location.hash = '#'
       return
+
+    document.title = a.def.title
 
     img = hash.slice(2).join '/'
 
@@ -29,6 +33,7 @@ routing = (albums)->
       if a.failed or not z = findImg a, img
         location.hash = '#'+a.fullPath()
         return
+      document.title = z.def.title
       root.body.innerHTML = ti z
 
     fire = (oops)->
@@ -42,7 +47,7 @@ routing = (albums)->
     if a.loaded
       do fire
     else
-      root.div.innerHTML = do tWait
+      root.body.innerHTML = do tWait
       a.loadPhotos
         success: fire
         error: -> fire 1
