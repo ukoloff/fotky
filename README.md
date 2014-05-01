@@ -28,7 +28,7 @@
 ```
 
 1. Подключить [fotky.js](/fotky.js)
-1. Подключить [fotky.css](/text/fotky.css)
+1. Подключить [fotky.css](/test/fotky.css)
 1. Создать `<div>` с id=`fotky`
 1. Добавить в этот `<div>` тэг `<script>` со списком альбомов
 1. Открыть страницу в браузере!
