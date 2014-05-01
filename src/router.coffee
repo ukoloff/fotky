@@ -1,6 +1,7 @@
 history = require './history'
 root = require './root'
 t = require './thumbs'
+picture = require './picture'
 withOut = require 'without'
 
 routing = (albums)->
@@ -22,33 +23,21 @@ routing = (albums)->
       return
 
     document.title = a.def.title
-    root.head.innerHTML = tHead a.def.title
-    root.foot.innerHTML = tFoot a.def.summary
+    root.head.innerHTML = tH a.def.title
+    root.foot.innerHTML = tF a.def.summary
 
     img = hash.slice(2).join '/'
-
-    renderAlbum = ->
-      root.body.innerHTML = if a.failed
-        do tOops
-      else
-        t a.ymgs
-
-    renderImg = ->
-      if a.failed or not z = findImg a, img
-        location.hash = '#'+a.fullPath()
-        return
-      document.title = z.def.title
-      root.head.innerHTML = tHead z.def.title
-      root.body.innerHTML = ti z
-      root.foot.innerHTML = tFoot z.def.summary
 
     fire = (oops)->
       a.loaded = true
       a.failed = true if oops
-      do if img
-        renderImg
+      if img
+        picture img, a
       else
-        renderAlbum
+        root.body.innerHTML = if a.failed
+          tOops
+        else
+          t a.ymgs
 
     if a.loaded
       do fire
@@ -58,30 +47,20 @@ routing = (albums)->
         success: fire
         error: -> fire 1
 
-ti = withOut.$compile (z)->
-  img src: z.def.img.L.href
-
-ti.id = 'img'
-
-tHead = withOut.$compile (txt)->
+tH = withOut.$compile (txt)->
   b txt
+tH.id = 'aHead'
 
-tFoot = withOut.$compile (txt)->
+tF = withOut.$compile (txt)->
   i txt
-
-tFoot.id = 'footer'
-
-findImg = (a, i)->
-  return z for z in a.ymgs when z.id==i
+tF.id = 'aFoot'
 
 tWait = withOut.compile ->
   div class: 'info', 'Идёт загрузка альбома...'
 
 tWait.id = 'wait'
 
-tOops = withOut.compile ->
+tOops = do withOut.compile ->
   div class: 'error', 'Не удалось загрузить альбом :-('
-
-tOops.id = 'oops'
 
 module.exports = routing
