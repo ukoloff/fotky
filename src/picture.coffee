@@ -4,7 +4,7 @@ withOut = require 'without'
 picture = (img, album)->
   find = ->
     for z, i in album.ymgs when z.id==img
-      z.idx = i
+      z.idx = Number i
       return z
 
   if album.failed or !z = do find
@@ -22,11 +22,21 @@ t = withOut.$compile (z)->
 t.id = 'img'
 
 tH = withOut.$compile (img, album)->
+  a
+    class: 'left'
+    href: '#'+(album.ymgs[img.idx-1]or album).fullPath()
+    title: 'Назад'
+    '<<'
   a href: '#', 'Галереи'
   text ' / '
   a href: '#'+album.fullPath(), album.def.title
   text ' / '
   b img.def.title
+  a
+    class: 'right'
+    href: '#'+(album.ymgs[img.idx+1]or album).fullPath()
+    title: 'Вперёд'
+    '>>'
 
 tH.id = 'iHead'
 

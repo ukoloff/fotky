@@ -23,3 +23,11 @@
 #fotky img {
   border: none;
 }
+
+#fotky .left {
+  float: left;
+}
+
+#fotky .right {
+  float: right;
+}
