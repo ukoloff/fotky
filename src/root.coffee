@@ -1,4 +1,5 @@
 merge = require './merge'
+withOut = require 'without'
 
 loaders = []
 domains = {}
@@ -67,6 +68,13 @@ indexUser = (u)->
   u._ = {}
   u._[z.id] = z for z in u.yalbums when z.visible()
 
+layout = ->
+  (z = exports.div).innerHTML = do withOut.compile ->
+    do div for i in [1..3]
+    return
+  exports[x] = z.childNodes[i]  for x, i in 'head body foot'.split ' '
+  return
+
 # Собрать список альбомов из результатов parse()
 load = (ids)->
   getUsers ids, (users)->
@@ -94,4 +102,6 @@ load = (ids)->
       else
         addAlbum x
 
+    do layout
     exports.ready? list
+

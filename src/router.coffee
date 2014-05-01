@@ -9,7 +9,7 @@ routing = (albums)->
 
   history (hash)->
     if ''==hash
-      root.div.innerHTML = t albums
+      root.body.innerHTML = t albums
       return
 
     hash = hash.split /\/+/
@@ -20,7 +20,7 @@ routing = (albums)->
     img = hash.slice(2).join '/'
 
     renderAlbum = ->
-      root.div.innerHTML = if a.failed
+      root.body.innerHTML = if a.failed
         do tOops
       else
         t a.ymgs
@@ -29,7 +29,7 @@ routing = (albums)->
       if a.failed or not z = findImg a, img
         location.hash = '#'+a.fullPath()
         return
-      root.div.innerHTML = ti z
+      root.body.innerHTML = ti z
 
     fire = (oops)->
       a.loaded = true
