@@ -90,6 +90,7 @@ load = (ids)->
     delAlbum = (a)->
       return unless a.idx?
       list.splice a.idx, 1
+      z.idx = i for z, i in list
       delete a.idx
 
     for z in ids when u = users[z.uid]
