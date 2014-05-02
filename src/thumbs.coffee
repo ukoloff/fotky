@@ -1,4 +1,8 @@
+root = require './root'
 withOut = require 'without'
+
+thumbs = (list)->
+  root.body.innerHTML = t list
 
 t = withOut.$compile (list, size = 'S')->
   for y in list
@@ -12,4 +16,4 @@ t = withOut.$compile (list, size = 'S')->
 
 t.id = 'thumbs'
 
-module.exports = t
+module.exports = thumbs

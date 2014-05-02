@@ -1,6 +1,6 @@
 history = require './history'
 root = require './root'
-t = require './thumbs'
+thumbs = require './thumbs'
 picture = require './picture'
 withOut = require 'without'
 
@@ -12,7 +12,7 @@ routing = (albums)->
   history (hash)->
     if ''==hash
       document.title = title
-      root.body.innerHTML = t albums
+      thumbs albums
       root.head.innerHTML = ''
       root.foot.innerHTML = ''
       return
@@ -33,11 +33,10 @@ routing = (albums)->
       a.failed = true if oops
       if img
         picture img, a
+      else if a.failed
+        root.body.innerHTML = tOops
       else
-        root.body.innerHTML = if a.failed
-          tOops
-        else
-          t a.ymgs
+        thumbs a.ymgs
 
     if a.loaded
       do fire
