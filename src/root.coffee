@@ -107,3 +107,8 @@ load = (ids)->
     do regions
     exports.ready? list
 
+size = ->
+  w: el.offsetWidth
+  h: document.body.clientHeight - exports.head.offsetHeight - exports.foot.offsetHeight
+
+exports.size = size

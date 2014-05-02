@@ -12,9 +12,9 @@ routing = (albums)->
   history (hash)->
     if ''==hash
       document.title = title
-      thumbs albums
       root.head.innerHTML = ''
       root.foot.innerHTML = ''
+      thumbs albums
       return
 
     hash = hash.split /\/+/
