@@ -379,17 +379,17 @@ module.exports = jsonp;
 },{"1":5}],4:[function(require,module,exports){
 var Yuser, root, route;
 
-Yuser = require(1);
+Yuser = require(3);
 
-root = require(2);
+root = require(1);
 
-route = require(3);
+route = require(2);
 
 root.register(Yuser);
 
 root.ready = route;
 
-},{"1":12,"2":7,"3":8}],5:[function(require,module,exports){
+},{"1":7,"2":8,"3":12}],5:[function(require,module,exports){
 var merge;
 
 merge = function() {
@@ -436,13 +436,34 @@ picture = function(img, album) {
   }
   document.title = z.def.title;
   root.head.innerHTML = tH(z, album);
-  root.body.innerHTML = t(z);
-  return root.foot.innerHTML = tF(z.def.summary);
+  root.body.innerHTML = '';
+  root.foot.innerHTML = tF(z.def.summary);
+  return root.body.innerHTML = t(z, root.size());
 };
 
-t = withOut.$compile(function(z) {
+t = withOut.$compile(function(z, size) {
+  var f0, factor, k, thumb, x, _ref;
+  if (size.w < 1) {
+    size.w = 1;
+  }
+  if (size.h < 1) {
+    size.h = 1;
+  }
+  thumb = null;
+  _ref = z.def.img;
+  for (k in _ref) {
+    x = _ref[k];
+    factor = Math.abs(Math.log(x.width * size.h > x.height * size.w ? x.width / size.w : x.height / size.h));
+    if (!thumb || factor < f0) {
+      thumb = x;
+      f0 = factor;
+    }
+  }
   return img({
-    src: z.def.img.L.href
+    src: thumb.href,
+    alt: z.def.title,
+    title: z.def.title,
+    style: "max-height: " + size.h + "px; max-width: " + size.w + "px;"
   });
 });
 
@@ -481,7 +502,7 @@ tF.id = 'iFoot';
 module.exports = picture;
 
 },{"1":7,"2":1}],7:[function(require,module,exports){
-var domains, el, flatten, getUsers, indexUser, load, loaders, merge, parse, regions, withOut;
+var domains, el, flatten, getUsers, indexUser, load, loaders, merge, parse, regions, size, withOut;
 
 merge = require(1);
 
@@ -686,14 +707,23 @@ load = function(ids) {
   });
 };
 
+size = function() {
+  return {
+    w: el.offsetWidth,
+    h: document.body.clientHeight - exports.head.offsetHeight - exports.foot.offsetHeight
+  };
+};
+
+exports.size = size;
+
 },{"1":5,"2":1}],8:[function(require,module,exports){
-var history, picture, root, routing, t, tF, tH, tOops, tWait, withOut;
+var history, picture, root, routing, tF, tH, tOops, tWait, thumbs, withOut;
 
 history = require(1);
 
 root = require(2);
 
-t = require(3);
+thumbs = require(3);
 
 picture = require(4);
 
@@ -711,9 +741,9 @@ routing = function(albums) {
     var a, fire, img;
     if ('' === hash) {
       document.title = title;
-      root.body.innerHTML = t(albums);
       root.head.innerHTML = '';
       root.foot.innerHTML = '';
+      thumbs(albums);
       return;
     }
     hash = hash.split(/\/+/);
@@ -732,8 +762,10 @@ routing = function(albums) {
       }
       if (img) {
         return picture(img, a);
+      } else if (a.failed) {
+        return root.body.innerHTML = tOops;
       } else {
-        return root.body.innerHTML = a.failed ? tOops : t(a.ymgs);
+        return thumbs(a.ymgs);
       }
     };
     if (a.loaded) {
@@ -783,28 +815,43 @@ tOops = withOut.compile(function() {
 module.exports = routing;
 
 },{"1":2,"2":7,"3":9,"4":6,"5":1}],9:[function(require,module,exports){
-var t, withOut;
+var root, t, thumbs, withOut;
 
-withOut = require(1);
+root = require(1);
+
+withOut = require(2);
+
+thumbs = function(list) {
+  var w;
+  w = root.size();
+  return root.body.innerHTML = t(list, w.w / Math.max(3, Math.sqrt(list.length)));
+};
 
 t = withOut.$compile(function(list, size) {
-  var y, yz, _i, _len;
-  if (size == null) {
-    size = 'S';
-  }
+  var k, thumb, v, w0, w1, y, _i, _len, _ref;
   for (_i = 0, _len = list.length; _i < _len; _i++) {
     y = list[_i];
-    yz = y.def.img[size];
+    thumb = 0;
+    _ref = y.def.img;
+    for (k in _ref) {
+      v = _ref[k];
+      w1 = Math.max(v.width, v.height);
+      if (!thumb || (w0 < w1 && w1 <= size) || (w0 > w1 && w1 >= size) || (w1 <= size && size < w0)) {
+        thumb = v;
+        w0 = w1;
+      }
+    }
     span({
       "class": 'thumbnail'
     }, function() {
       return a({
-        style: "width: " + yz.width + "px;",
+        style: "width: " + thumb.width + "px;",
         href: "#" + (y.fullPath()),
         title: y.def.title || null
       }, function() {
         img({
-          src: yz.href
+          src: thumb.href,
+          alt: y.def.title
         });
         div(function() {
           return b(y.def.title);
@@ -821,14 +868,14 @@ t = withOut.$compile(function(list, size) {
 
 t.id = 'thumbs';
 
-module.exports = t;
+module.exports = thumbs;
 
-},{"1":1}],10:[function(require,module,exports){
+},{"1":7,"2":1}],10:[function(require,module,exports){
 var Yalbum, Ymg, jsonp;
 
-Ymg = require(2);
+Ymg = require(1);
 
-jsonp = require(1);
+jsonp = require(2);
 
 Yalbum = function(yuser, def) {
   this.def = def;
@@ -877,7 +924,7 @@ Yalbum.prototype = {
 
 module.exports = Yalbum;
 
-},{"1":3,"2":11}],11:[function(require,module,exports){
+},{"1":11,"2":3}],11:[function(require,module,exports){
 var Ymg;
 
 Ymg = function(yalbum, def) {
