@@ -10,7 +10,7 @@ t = withOut.$compile (list, size)->
     thumb = 0
     for k, v of y.def.img
       w1 = Math.max v.width, v.height
-      if !thumb or w0 < w1 < size or w0 > w1 > size
+      if !thumb or w0 < w1 <= size or w0 > w1 >= size or w1 <= size < w0
         thumb = v
         w0 = w1
     span class: 'thumbnail', ->
