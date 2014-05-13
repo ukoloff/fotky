@@ -13,14 +13,24 @@ picture = (img, album)->
 
   document.title = z.def.title
   root.head.innerHTML = tH z, album
-  root.body.innerHTML = t z
+  root.body.innerHTML = ''
   root.foot.innerHTML = tF z.def.summary
+  root.body.innerHTML = t z, root.size()
 
-t = withOut.$compile (z)->
+t = withOut.$compile (z, size)->
+  size.w = 1 if size.w < 1
+  size.h = 1 if size.h < 1
+  thumb = null
+  for k, x of z.def.img
+    factor = Math.abs Math.log if x.width*size.h>x.height*size.w then x.width/size.w else x.height/size.h
+    if !thumb or factor<f0
+      thumb = x
+      f0 = factor
   img
-    src: z.def.img.L.href
+    src: thumb.href
     alt: z.def.title
     title: z.def.title
+    style: ("max-#{n}: #{thumb[n]}px;" for n in ['height', 'width']).join '\n'
 
 t.id = 'img'
 
