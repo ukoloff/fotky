@@ -13,9 +13,11 @@ picture = (img, album)->
 
   document.title = z.def.title
   root.head.innerHTML = tH z, album
-  root.body.innerHTML = ''
+  (b = root.body).innerHTML = ''
   root.foot.innerHTML = tF z.def.summary
-  root.body.innerHTML = t z, root.size()
+  b.innerHTML = t z, root.size()
+  b.firstChild.onload = ->
+    root.head.scrollIntoView()
 
 t = withOut.$compile (z, size)->
   size.w = 1 if size.w < 1
