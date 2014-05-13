@@ -30,7 +30,7 @@ t = withOut.$compile (z, size)->
     src: thumb.href
     alt: z.def.title
     title: z.def.title
-    style: ("max-#{n}: #{thumb[n]}px;" for n in ['height', 'width']).join '\n'
+    style: "max-height: #{size.h}px; max-width: #{size.w}px;"
 
 t.id = 'img'
 
