@@ -3,7 +3,7 @@ withOut = require 'without'
 
 thumbs = (list)->
   w = root.size()
-  root.body.innerHTML = t list, Math.min(w.w, w.h)/Math.max 3, Math.sqrt list.length
+  root.body.innerHTML = t list, w.w/Math.max 3, Math.sqrt list.length
 
 t = withOut.$compile (list, size)->
   for y in list
