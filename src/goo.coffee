@@ -1,4 +1,5 @@
 jsonp = require './jsonp'
+Gal = require './gal'
 
 Guser = (@name, options)->
   jsonp
@@ -7,10 +8,13 @@ Guser = (@name, options)->
     error: =>
       options.error?.call @
     success: (data)=>
-      # console.log data
+      console.log data
       @id = data.feed.author[0].uri.$t.replace /.*\W/, ''
-      @yalbums = []
+      @yalbums = makeGals data.feed.entry
       options.success?.call @
+
+  makeGals = (entry)=>
+    new Gal @, z for z in entry
 
 Guser.exts = 'g google google.com gmail.com'.split ' '
 
