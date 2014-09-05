@@ -1,8 +1,12 @@
 jsonp = require './jsonp'
 
-Gal = (guser, @def)->
+Gal = (guser, def)->
   @path = guser.id
-  @id = @def.id.$t.replace(/\?.*/, '').replace /.*\W/, ''
+  @id = def.gphoto$id.$t
+  @def =
+    title: def.title.$t
+    summary: def.summary.$t
+  false
 
 Gal.prototype =
   visible: ->
