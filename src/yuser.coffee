@@ -11,7 +11,8 @@ Yuser = (@name, options)->
     success: (data)=>
       @service = data
       jsonp
-        url: data.collections['album-list'].href+'?format=json'
+        url: data.collections['album-list'].href
+        data: format: 'json'
         error: =>
           options.error?.call @
         success: (data)=>
