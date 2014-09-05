@@ -9,7 +9,7 @@ Guser = (@name, options)->
       options.error?.call @
     success: (data)=>
       console.log data
-      @id = data.feed.author[0].uri.$t.replace /.*\W/, ''
+      @id = data.feed.gphoto$user.$t
       @yalbums = makeGals data.feed.entry
       options.success?.call @
 
