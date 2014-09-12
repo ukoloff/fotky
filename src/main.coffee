@@ -1,4 +1,4 @@
-Yuser = require './yuser'
+Yuser = require './ya'
 root = require './root'
 route = require './router'
 
