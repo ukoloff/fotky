@@ -1,5 +1,6 @@
-Yuser = require './yuser'
+Yuser = require './ya'
 Guser = require './goo'
+
 root = require './root'
 route = require './router'
 

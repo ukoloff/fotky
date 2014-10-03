@@ -39,7 +39,7 @@ jsonp = (options)->
 
 jsonp.defaults =
   callback: 'callback'
-  timeout: 3000
+  timeout: 5000
 
 random=(q=1)->
   s = ''

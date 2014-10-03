@@ -10,18 +10,11 @@
     "url": "https://github.com/ukoloff/fotky"
   },
   "devDependencies": {
-    "coffee-script": "~1.7.1",
-    "uglify-js": "~2.4.13",
-    "underscore": "~1.6.0",
-    "without": "~1.1.0",
-    "browserify": "~3.44.1",
-    "through": "~2.3.4",
-    "intreq": "0.0.0",
-    "browser-pack": "~2.0.1",
-    "chokidar": "~0.8.2",
-    "exorcist": "^0.1.6"
+    "without": "^1.1.0",
+    "coffee418": "0.0.1"
   },
   "scripts": {
-    "test": "node node_modules/coffee-script/bin/coffee src/build.coffee"
-  }
+    "test": "node node_modules/coffee418"
+  },
+  "browser": "src/main"
 }
