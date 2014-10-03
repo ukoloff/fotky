@@ -1,4 +1,4 @@
-jsonp = require './jsonp'
+jsonp = require '../jsonp'
 Gal = require './gal'
 
 Guser = (@name, options)->

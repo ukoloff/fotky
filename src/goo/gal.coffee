@@ -1,4 +1,4 @@
-jsonp = require './jsonp'
+jsonp = require '../jsonp'
 
 Gal = (guser, def)->
   @path = guser.id
