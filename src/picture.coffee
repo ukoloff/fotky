@@ -19,7 +19,7 @@ picture = (img, album)->
   b.firstChild.onload = ->
     root.head.scrollIntoView()
 
-t = withOut.$compile (z, size)->
+t = withOut (z, size)->
   size.w = 1 if size.w < 1
   size.h = 1 if size.h < 1
   thumb = null
@@ -36,7 +36,7 @@ t = withOut.$compile (z, size)->
 
 t.id = 'img'
 
-tH = withOut.$compile (img, album)->
+tH = withOut (img, album)->
   a
     class: 'left'
     href: '#'+(album.ymgs[img.idx-1]or album).fullPath()

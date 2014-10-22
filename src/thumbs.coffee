@@ -5,7 +5,7 @@ thumbs = (list)->
   w = root.size()
   root.body.innerHTML = t list, w.w/Math.max 3, Math.sqrt list.length
 
-t = withOut.$compile (list, size)->
+t = withOut (list, size)->
   for y in list
     thumb = 0
     for k, v of y.def.img
