@@ -46,22 +46,22 @@ routing = (albums)->
         success: fire
         error: -> fire 1
 
-tH = withOut.$compile (album)->
+tH = withOut (album)->
   a href: '#', 'Галереи'
   text ' / '
   b album.def.title
 tH.id = 'aHead'
 
-tF = withOut.$compile (txt)->
+tF = withOut (txt)->
   i txt
 tF.id = 'aFoot'
 
-tWait = withOut.compile ->
+tWait = withOut ->
   div class: 'info', 'Идёт загрузка альбома...'
 
 tWait.id = 'wait'
 
-tOops = do withOut.compile ->
+tOops = do withOut ->
   div class: 'error', 'Не удалось загрузить альбом :-('
 
 module.exports = routing

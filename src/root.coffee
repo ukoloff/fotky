@@ -70,7 +70,7 @@ indexUser = (u)->
   u._[z.id] = z for z in u.yalbums when z.visible()
 
 regions = ->
-  el.innerHTML = do withOut.compile ->
+  el.innerHTML = do withOut ->
     div id: i for i in 'head body foot'.split ' '
     return
   exports[x.id] = x for x in el.childNodes
