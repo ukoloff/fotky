@@ -10,7 +10,7 @@
     "url": "https://github.com/ukoloff/fotky"
   },
   "devDependencies": {
-    "without": "^1.1.0",
+    "without": "^1.1.1",
     "coffee418": "0.0.1"
   },
   "scripts": {
