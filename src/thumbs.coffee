@@ -13,10 +13,13 @@ t = withOut (list, size)->
       if !thumb or w0 < w1 <= size or w0 > w1 >= size or w1 <= size < w0
         thumb = v
         w0 = w1
+    name = y.def.title
+    name = y.def.summary if /^\w{8,}[.]\w{3}$/.test name
+    name ||= null
     span class: 'thumbnail', ->
-      a style: "width: #{thumb.width}px;", href: "##{y.fullPath()}", title: y.def.title or null, ->
-        img src: thumb.href, alt: y.def.title
-        div -> b y.def.title
+      a style: "width: #{thumb.width}px;", href: "##{y.fullPath()}", title: name, ->
+        img src: thumb.href, alt: name
+        div -> b name
         div title: y.def.summary or null, -> small y.def.summary
   return
 
