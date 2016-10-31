@@ -14,7 +14,7 @@ t = withOut (list, size)->
         thumb = v
         w0 = w1
     name = y.def.title
-    name = y.def.summary if /^\w{8,}[.]\w{3}$/.test name
+    name = y.def.summary if /^[-\w]{8,}[.]\w{3}$/.test name
     name ||= null
     span class: 'thumbnail', ->
       a style: "width: #{thumb.width}px;", href: "##{y.fullPath()}", title: name, ->
