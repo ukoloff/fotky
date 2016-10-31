@@ -2,7 +2,7 @@ Ymg = require './ymg'
 jsonp = require '../jsonp'
 
 Yalbum = (yuser, @def)->
-  @id = def.id.split(':').reverse()[0]
+  @id = @def.id.split(':').reverse()[0]
   @path = yuser.id
 
 Yalbum.prototype =
