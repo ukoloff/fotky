@@ -1,8 +1,7 @@
 webpack = require 'webpack'
 ugly = require './ugly'
 
-@entry =
-  x: "./src"
+@entry = "./src"
 
 @output =
   path: "tmp",
@@ -30,7 +29,7 @@ brk = (s)->
 @plugins = values
   ugly: new ugly
     output:
-      max_line_len: 128
+      max_line_len: 80
     compress:
       warnings: false
   globals: new webpack.ProvidePlugin require './autoload'
