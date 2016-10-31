@@ -1,5 +1,3 @@
-merge = require './merge'
-
 loaders = []
 domains = {}
 el = null

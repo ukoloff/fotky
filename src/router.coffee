@@ -1,8 +1,3 @@
-history = require './history'
-root = require './root'
-thumbs = require './thumbs'
-picture = require './picture'
-
 routing = (albums)->
   title = document.title
   all = {}

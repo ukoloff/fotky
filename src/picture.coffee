@@ -1,5 +1,3 @@
-root = require './root'
-
 picture = (img, album)->
   find = ->
     for z, i in album.ymgs when z.id==img
