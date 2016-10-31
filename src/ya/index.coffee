@@ -3,7 +3,7 @@ jsonp = require '../jsonp'
 
 Yuser = (@name, options)->
   jsonp
-    url: "http://api-fotki.yandex.ru/api/users/#{escape(name)}/"
+    url: "http://api-fotki.yandex.ru/api/users/#{escape(@name)}/"
     data:
       format: 'json'
     error: =>
