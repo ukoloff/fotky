@@ -9,12 +9,14 @@
     "type": "git",
     "url": "https://github.com/ukoloff/fotky"
   },
-  "devDependencies": {
-    "without": "^1.1.1",
-    "coffee418": "0.0.1"
-  },
   "scripts": {
-    "test": "node node_modules/coffee418"
+    "test": "webpack -d --watch",
+    "start": "webpack -p"
   },
-  "browser": "src/main"
+  "devDependencies": {
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.11.1",
+    "webpack": "^1.13.3",
+    "without": "^1.1.2"
+  }
 }

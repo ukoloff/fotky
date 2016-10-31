@@ -1,6 +1,3 @@
-merge = require './merge'
-withOut = require 'without'
-
 loaders = []
 domains = {}
 el = null
@@ -70,7 +67,7 @@ indexUser = (u)->
   u._[z.id] = z for z in u.yalbums when z.visible()
 
 regions = ->
-  el.innerHTML = do withOut ->
+  el.innerHTML = do without ->
     div id: i for i in 'head body foot'.split ' '
     return
   exports[x.id] = x for x in el.childNodes

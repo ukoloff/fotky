@@ -1,9 +1,3 @@
-history = require './history'
-root = require './root'
-thumbs = require './thumbs'
-picture = require './picture'
-withOut = require 'without'
-
 routing = (albums)->
   title = document.title
   all = {}
@@ -46,22 +40,22 @@ routing = (albums)->
         success: fire
         error: -> fire 1
 
-tH = withOut (album)->
+tH = without (album)->
   a href: '#', 'Галереи'
   text ' / '
   b album.def.title
 tH.id = 'aHead'
 
-tF = withOut (txt)->
+tF = without (txt)->
   i txt
 tF.id = 'aFoot'
 
-tWait = withOut ->
+tWait = without ->
   div class: 'info', 'Идёт загрузка альбома...'
 
 tWait.id = 'wait'
 
-tOops = do withOut ->
+tOops = do without ->
   div class: 'error', 'Не удалось загрузить альбом :-('
 
 module.exports = routing

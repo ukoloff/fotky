@@ -1,5 +1,3 @@
-merge = require './merge'
-
 quote = encodeURIComponent
 jsonp = (options)->
   {url, callback, timeout} = merge jsonp.defaults, options
@@ -40,12 +38,5 @@ jsonp = (options)->
 jsonp.defaults =
   callback: 'callback'
   timeout: 5000
-
-random=(q=1)->
-  s = ''
-  while s.length<q
-    n=Math.floor 62*Math.random()
-    s+=String.fromCharCode n%26+'Aa0'.charCodeAt n/26
-  s
 
 module.exports = jsonp
