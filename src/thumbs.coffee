@@ -1,5 +1,3 @@
-root = require './root'
-
 thumbs = (list)->
   w = root.size()
   root.body.innerHTML = t list, w.w/Math.max 3, Math.sqrt list.length
