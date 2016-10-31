@@ -1,5 +1,4 @@
 root = require './root'
-withOut = require 'without'
 
 picture = (img, album)->
   find = ->
@@ -19,7 +18,7 @@ picture = (img, album)->
   b.firstChild.onload = ->
     root.head.scrollIntoView()
 
-t = withOut (z, size)->
+t = without (z, size)->
   size.w = 1 if size.w < 1
   size.h = 1 if size.h < 1
   thumb = null
@@ -36,7 +35,7 @@ t = withOut (z, size)->
 
 t.id = 'img'
 
-tH = withOut (img, album)->
+tH = without (img, album)->
   a
     class: 'left'
     href: '#'+(album.ymgs[img.idx-1]or album).fullPath()
@@ -55,7 +54,7 @@ tH = withOut (img, album)->
 
 tH.id = 'iHead'
 
-tF = withOut.$compile (txt)->
+tF = without.$compile (txt)->
   i txt
 tF.id = 'iFoot'
 
