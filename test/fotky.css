@@ -20,7 +20,7 @@
   color: navy;
 }
 
-#fotky img {
+#fotky .thumbnail a img {
   border: none;
   display: block;
 }
