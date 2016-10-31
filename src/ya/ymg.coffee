@@ -1,5 +1,5 @@
 Ymg = (yalbum, @def)->
-  @id = def.id.split(':').reverse()[0]
+  @id = @def.id.split(':').reverse()[0]
   @path = yalbum.fullPath()
 
 Ymg.prototype =
